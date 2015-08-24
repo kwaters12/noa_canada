@@ -1,0 +1,10 @@
+%h2 Mutual Fund Licensee Form
+= fields_for agent do |f|
+  Office Phone Number
+  = f.text_field :phone_number
+  %br
+  Your License #
+  = f.text_field :license_number
+  %br
+  Company Name
+  = f.text_field :sub_brokerage

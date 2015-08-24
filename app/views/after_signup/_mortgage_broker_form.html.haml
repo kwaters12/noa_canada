@@ -1,0 +1,13 @@
+%h2 Mortgage Broker Form
+= fields_for agent do |f|
+  Office Phone Number
+  = f.text_field :phone_number
+  %br
+  Your Mortgage License #
+  = f.text_field :license_number
+  %br
+  Brokerage
+  = f.text_field :brokerage_id
+  %br
+  Sub-Brokerage
+  = f.text_field :sub_brokerage

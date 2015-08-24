@@ -1,0 +1,69 @@
+.container
+  = simple_form_for @agent, url: wizard_path, id: "user-form-part1" do |f|
+    .col-md-6
+      Taxpayer
+      = radio_button :agent, :agent_type, 'None', :onclick => "render_partial('taxpayer');"
+      %br
+      Mortgage Broker
+      = radio_button :agent, :agent_type, 'Mortgage Broker', :onclick => "render_partial('mortgage broker');"
+      %br
+      Mutual Fund Licensee
+      = radio_button :agent, :agent_type, 'Mutual Fund Licensee', :onclick => "render_partial('mutual fund licensee');"
+      %br
+      Life Insurance Licensee
+      = radio_button :agent, :agent_type, 'Life Insurance Licensee', :onclick => "render_partial('life insurance licensee');"
+      %br
+      CPA
+      = radio_button :agent, :agent_type, 'CPA', :onclick => "render_partial('cpa');"
+      %br
+      Other
+      = radio_button :agent, :agent_type, 'Other', :onclick => "render_partial('other');"
+    .col-md-6
+      #partial-area
+        <h2>Please select a radio button </h2>
+      = f.submit "Continue", class: "btn btn-default", id: "submit-button"
+
+
+:javascript
+  $(document).ready(function() {
+    $("#submit-button").on('click', function() {
+      $('#type').val($(this).attr('data-val'));
+    });
+
+    $("#connect-button").on('click', function() {
+      $('#type').val('taxpayer');
+      $('#edit_agent_3').submit();
+    });
+  });
+  function render_partial(element) {
+    switch(element) {
+      case 'taxpayer':
+        $('#partial-area').hide().html("#{escape_javascript(render 'taxpayer_form')}").fadeIn();
+        break;
+      case 'mortgage broker':
+         $('#partial-area').hide().html("#{escape_javascript(render 'mortgage_broker_form', agent: @agent)}").fadeIn();
+         $('#submit-button').show().attr('data-type', 'mutual-fund-licensee');
+        break;
+      case 'mutual fund licensee':
+         $('#partial-area').hide().html("#{escape_javascript(render 'mutual_fund_licensee_form', agent: @agent)}").fadeIn();
+         $('#submit-button').show().attr('data-type', 'mutual-fund-licensee');
+        break;
+      case 'life insurance licensee':
+         $('#partial-area').hide().html("#{escape_javascript(render 'life_insurance_licensee_form', agent: @agent)}").fadeIn();
+         $('#submit-button').show().attr('data-type', 'life-insurance-licensee');
+        break;
+      case 'cpa':
+         $('#partial-area').hide().html("#{escape_javascript(render 'cpa_form', agent: @agent)}").fadeIn();
+         $('#submit-button').show().attr('data-type', 'cpa');
+        break;
+
+      case 'other':
+         $('#partial-area').hide().html("#{escape_javascript(render 'other_form', agent: @agent)}").fadeIn();
+         $('#submit-button').show().attr('data-type', 'other');
+        break;
+      default:
+        $('#partial-area').hide().html('<h1>Please select a radio button </h1>').fadeIn();
+        break;
+
+    }
+  } 

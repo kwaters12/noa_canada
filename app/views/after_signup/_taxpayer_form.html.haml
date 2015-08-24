@@ -1,0 +1,5 @@
+/ = fields_for agent do |f|
+%button.btn.btn-default#connect-button
+  Find Me a Tax Agent
+  / class: 'btn btn-default', id: 'connect-button'
+= link_to "I have a Tax Agent", agent_lookup_path, class: 'btn btn-default', id: 'lookup-button'

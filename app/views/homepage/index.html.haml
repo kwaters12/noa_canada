@@ -1,0 +1,25 @@
+.landing-page
+  .text-center.headline
+    %h1 Welcome to NOA Canada
+  - if agent_signed_in?
+    Signed In
+  - else
+    .col-md-12.text-center.cta
+      .col-md-5.col-md-offset-1
+        .cta-selection
+          %h3 <strong>New NOA Canada Agent Sign-Up</strong>
+          = link_to "New User", new_agent_registration_path, class: 'btn btn-default'
+      .col-md-5   
+        .cta-selection
+          %h3 <strong>Returning User</strong>
+          = form_tag session_path(:agent) do
+            = text_field_tag 'user[email]'
+            %br
+            = password_field_tag 'user[password]'
+            %br
+            = check_box_tag 'user[remember_me]'
+            = label_tag 'user[remember_me]', 'Remember me'
+            %br
+            %button Sign in
+            = link_to "Forgot your password?", new_password_path(:agent)
+
