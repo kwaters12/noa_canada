@@ -1,6 +1,7 @@
 class TaxpayersController < ApplicationController
   before_action :find_taxpayer, except: [:index, :new, :create]
   before_action :find_agent
+  require 'dropbox_sdk'
 
   def index
     @agent = current_agent
@@ -21,24 +22,55 @@ class TaxpayersController < ApplicationController
     @taxpayer = @agent.taxpayers.new(taxpayer_params)   
     if @taxpayer.save
       @order = @agent.orders.new(order_params)
+      @order.status = "Started"
       @order.agent_id = current_agent.id
       @order.taxpayer_id = @taxpayer.id 
-      @order.save
-      respond_to do |format|
-        format.html { 
-          # redirect_to noa_application_path(@noa_application), notice: "Thank You!" 
-          redirect_to root_url
-        }
-        format.js
-        format.json  { render json: @client.to_json(include: @noa_application) }   
-      end     
+      if !params[:order]
+        respond_to do |format|
+          format.html { 
+            generate_pdf(@taxpayer, @order)
+            # redirect_to order_path(@order), notice: "Thank You!" 
+          }
+          format.js
+          format.json  { render json: @taxpayer.to_json(include: @order) }
+        end
+      else
+        @order.save
+        handle_payment(params[:payment_method], @order)
+        respond_to do |format|
+          format.html { 
+            # redirect_to order_path(@order), notice: "Thank You!" 
+            redirect_to root_url
+          }
+          format.js
+          format.json  { render json: @taxpayer.to_json(include: @order) }   
+        end 
+      end    
     else
       flash.now[:error] = "Sorry, your application was not saved"
       redirect_to new_order_path
     end 
   end
 
+  def hook
+    params.permit!
+    status = params[:payment_status]
+    if status == "Completed" 
+      @order = Order.find params[:invoice]
+      @order.update_attributes notification_params: params, status: status, transaction_id: params[:txn_id], purchased_at: Time.now
+    end
+    render nothing: true
+  end
+
   private
+
+  def handle_payment(payment_method, order)
+    if payment_method === 'Pay with Paypal'
+      redirect_to order.paypal_url(order_path(order))
+    else
+      redirect_to order_path(order)
+    end
+  end
 
   def find_agent
     @agent = current_agent
@@ -50,5 +82,45 @@ class TaxpayersController < ApplicationController
 
   def order_params
     params.require(:taxpayer).permit([:document])
+  end
+
+  def generate_pdf(taxpayer, order)
+    order.pdf_path = pdf_path = OrderPDFForm.new(taxpayer).export
+
+    
+    @dropbox_client = DropboxClient.new('fOObVAMBomkAAAAAAAAAWHCIPbIWTv7bwD3nHivV2EXLwV0WgKCJRYK9ykrWo8Ru')
+
+    folder = @dropbox_client.search('/', folder_name)
+    if folder
+      move_pdf(pdf_path)
+      send_link
+    else
+      @dropbox_client.file_create_folder(folder_name)
+
+      move_pdf(pdf_path)
+      send_link
+   
+    end
+    order.save
+    handle_payment(params[:payment_method], order)
+    taxpayer.save  
+    
+  end
+
+  def folder_name
+    @taxpayer.sin + ' ' + @taxpayer.last_name + ', ' + @taxpayer.first_name
+  end
+
+  def file_name
+    @taxpayer.sin + ' ' + @taxpayer.last_name + ', ' + @taxpayer.first_name + ' ' + Date.today.to_s +  '.pdf'
+  end
+
+  def move_pdf(pdf_path)
+    @dropbox_client.put_file('/' + folder_name + '/' + file_name, open(pdf_path), overwrite=true)
+  end
+
+  def send_link
+    shareable = @dropbox_client.shares(folder_name + '/' + file_name)    
+    # ClientMailer.dropbox_link(@client, shareable['url']).deliver_now
   end
 end

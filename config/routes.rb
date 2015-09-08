@@ -23,6 +23,11 @@ Rails.application.routes.draw do
   devise_scope :agent do
     put "/confirm" => "confirmations#confirm"
   end
+
+  get '/docusign_response/:envelopeID(.:format)' => 'orders#docusign_response', as: 'docusign_response'
+
+  post '/orders/:id' => 'orders#show'
+  post '/hook' => 'orders#hook'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

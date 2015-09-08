@@ -7,6 +7,7 @@
     = f.file_field :document
   .col-md-6
     .row
+      Whether you have a completed T1013 or not, please provide the taxpayer's information, so you can track your orders with NOACanada.
       .col-md-6
         / = @order.first_name
         = f.input :first_name, input_html: { class: 'form-control' }
@@ -25,11 +26,11 @@
     
       / .col-md-3
       /   = f.input :hassignature
-      / .text-center
-      /   .col-md-6
-      /     = f.submit "Pay with Paypal", name: 'payment_method', value: 'Pay with Paypal',class: 'btn btn-default'
-      /   .col-md-6  
-      /     = f.submit "Pay with Credit Card", name: 'payment_method', value: 'Pay with Credit Card', class: 'btn btn-default'
       .text-center
-        = f.submit "Process Order", class: "btn btn-default"
+        .col-md-6.col-md-offset-6
+          = f.submit "Pay with Paypal", name: 'payment_method', value: 'Pay with Paypal',class: 'btn btn-default'
+        / .col-md-6  
+        /   = f.submit "Pay with Credit Card", name: 'payment_method', value: 'Pay with Credit Card', class: 'btn btn-default'
+      / .text-center
+      /   = f.submit "Process Order", class: "btn btn-default"
 
