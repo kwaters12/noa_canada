@@ -44,7 +44,7 @@ class OrdersController < ApplicationController
 
   def show 
     @order = Order.find(params[:id])
-    if @order.docusign_url.nil?
+    if @order.document.exists? && @order.docusign_url.nil?
       attach_docusign_signature(@order)
     else
       @url = @order.docusign_url
