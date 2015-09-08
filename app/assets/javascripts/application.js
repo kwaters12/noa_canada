@@ -12,6 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui/autocomplete
 //= require turbolinks
+//= require jquery.turbolinks
+//= require moment
+//= require bootstrap-datetimepicker
+//= require jquery.screwdefaultbuttonsV2
 //= require form_functions
 //= require_tree .

@@ -1,0 +1,9 @@
+.container
+  .form-fields
+    .col-md-2.sidebar-col
+      = render '/homepage/sidebar'
+    .col-md-10
+      / = render 'form'
+      Your Customers:
+      - @taxpayers.each do |t|
+        = t.first_name

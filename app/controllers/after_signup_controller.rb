@@ -1,11 +1,10 @@
 class AfterSignupController < ApplicationController
   include Wicked::Wizard
 
-  steps :choose_type, :add_password
+  steps :choose_type
 
    def show
     @agent = current_agent
-    
     render_wizard
   end
 
@@ -22,13 +21,13 @@ class AfterSignupController < ApplicationController
       sign_in(@agent, bypass: true) # needed for devise
       render_wizard @agent
     end
-   
+
   end
 
   private
 
   def agent_params
-    params.require(:agent).permit(:account_number, :agent_type, :designated_individual, :first_name, :is_admin, :last_name, :email, :license_number, :phone_number)
+    params.require(:agent).permit(:account_number, :agent_type, :designated_individual, :first_name, :is_admin, :last_name, :email, :license_number, :phone_number, :brokerage_name, :sub_brokerage_name, :brokerage_id, :sub_brokerage_id)
   end
 
   def taxpayer_params

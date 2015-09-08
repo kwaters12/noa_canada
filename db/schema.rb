@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150823201249) do
+ActiveRecord::Schema.define(version: 20150907051533) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "agents", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -43,11 +46,11 @@ ActiveRecord::Schema.define(version: 20150823201249) do
     t.integer  "brokerage_id"
   end
 
-  add_index "agents", ["brokerage_id"], name: "index_agents_on_brokerage_id"
-  add_index "agents", ["confirmation_token"], name: "index_agents_on_confirmation_token", unique: true
-  add_index "agents", ["email"], name: "index_agents_on_email", unique: true
-  add_index "agents", ["reset_password_token"], name: "index_agents_on_reset_password_token", unique: true
-  add_index "agents", ["sub_brokerage_id"], name: "index_agents_on_sub_brokerage_id"
+  add_index "agents", ["brokerage_id"], name: "index_agents_on_brokerage_id", using: :btree
+  add_index "agents", ["confirmation_token"], name: "index_agents_on_confirmation_token", unique: true, using: :btree
+  add_index "agents", ["email"], name: "index_agents_on_email", unique: true, using: :btree
+  add_index "agents", ["reset_password_token"], name: "index_agents_on_reset_password_token", unique: true, using: :btree
+  add_index "agents", ["sub_brokerage_id"], name: "index_agents_on_sub_brokerage_id", using: :btree
 
   create_table "brokerages", force: :cascade do |t|
     t.string   "name"
@@ -69,12 +72,16 @@ ActiveRecord::Schema.define(version: 20150823201249) do
     t.string   "purchased_at"
     t.string   "transaction_id"
     t.text     "notification_params"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.string   "document_file_name"
+    t.string   "document_content_type"
+    t.integer  "document_file_size"
+    t.datetime "document_updated_at"
   end
 
-  add_index "orders", ["agent_id"], name: "index_orders_on_agent_id"
-  add_index "orders", ["taxpayer_id"], name: "index_orders_on_taxpayer_id"
+  add_index "orders", ["agent_id"], name: "index_orders_on_agent_id", using: :btree
+  add_index "orders", ["taxpayer_id"], name: "index_orders_on_taxpayer_id", using: :btree
 
   create_table "sub_brokerages", force: :cascade do |t|
     t.string   "name"
@@ -88,7 +95,7 @@ ActiveRecord::Schema.define(version: 20150823201249) do
     t.datetime "updated_at",   null: false
   end
 
-  add_index "sub_brokerages", ["brokerage_id"], name: "index_sub_brokerages_on_brokerage_id"
+  add_index "sub_brokerages", ["brokerage_id"], name: "index_sub_brokerages_on_brokerage_id", using: :btree
 
   create_table "taxpayers", force: :cascade do |t|
     t.string   "first_name"
@@ -103,6 +110,6 @@ ActiveRecord::Schema.define(version: 20150823201249) do
     t.datetime "updated_at",   null: false
   end
 
-  add_index "taxpayers", ["agent_id"], name: "index_taxpayers_on_agent_id"
+  add_index "taxpayers", ["agent_id"], name: "index_taxpayers_on_agent_id", using: :btree
 
 end

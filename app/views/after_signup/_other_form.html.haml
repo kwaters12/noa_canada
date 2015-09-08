@@ -1,10 +1,11 @@
-%h2 Other Form
 = fields_for agent do |f|
-  Office Phone Number
-  = f.text_field :phone_number
-  %br
-  Company Name
-  = f.text_field :sub_brokerage
-  %br
-  Specify Your Profession
-  = f.text_field :agent_type
+  .col-md-6
+    Office Phone Number
+    = f.text_field :phone_number
+  .col-md-6
+    Company Name
+    = f.text_field :sub_brokerage
+  .col-md-12
+    Specify Your Profession:
+    %br
+    = f.text_field :agent_type

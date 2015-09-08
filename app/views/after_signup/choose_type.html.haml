@@ -1,27 +1,89 @@
 .container
-  = simple_form_for @agent, url: wizard_path, id: "user-form-part1" do |f|
-    .col-md-6
-      Taxpayer
-      = radio_button :agent, :agent_type, 'None', :onclick => "render_partial('taxpayer');"
-      %br
-      Mortgage Broker
-      = radio_button :agent, :agent_type, 'Mortgage Broker', :onclick => "render_partial('mortgage broker');"
-      %br
-      Mutual Fund Licensee
-      = radio_button :agent, :agent_type, 'Mutual Fund Licensee', :onclick => "render_partial('mutual fund licensee');"
-      %br
-      Life Insurance Licensee
-      = radio_button :agent, :agent_type, 'Life Insurance Licensee', :onclick => "render_partial('life insurance licensee');"
-      %br
-      CPA
-      = radio_button :agent, :agent_type, 'CPA', :onclick => "render_partial('cpa');"
-      %br
-      Other
-      = radio_button :agent, :agent_type, 'Other', :onclick => "render_partial('other');"
-    .col-md-6
-      #partial-area
-        <h2>Please select a radio button </h2>
-      = f.submit "Continue", class: "btn btn-default", id: "submit-button"
+  .form-fields    
+    = simple_form_for @agent, url: wizard_path, id: "user-form-part1" do |f|
+      %h2 Please Select a Radio Button
+      .col-md-6.form-radios      
+        .form-radio#taxpayer
+          .col-md-10
+            %label{:for => "taxpayer-radio"}
+              Taxpayer
+          .col-md-2
+            = radio_button :agent, :agent_type, 'None', onclick: "render_partial('taxpayer');", id: "taxpayer-radio"
+        .form-radio#mortgage
+          .col-md-10 
+            %label{:for => "mortgage-radio"}
+              Mortgage Broker
+          .col-md-2
+            = radio_button :agent, :agent_type, 'Mortgage Broker', onclick: "render_partial('mortgage broker');", id: 'mortgage-radio'
+        .form-radio#mutual
+          .col-md-10
+            %label{:for => "mutual-radio"}
+              Mutual Fund Licensee
+          .col-md-2
+            = radio_button :agent, :agent_type, 'Mutual Fund Licensee', onclick: "render_partial('mutual fund licensee');", id: 'mutual-radio'
+        .form-radio#insurance
+          .col-md-10
+            %label{:for => "insurance-radio"}
+              Life Insurance Licensee
+          .col-md-2
+            = radio_button :agent, :agent_type, 'Life Insurance Licensee', onclick: "render_partial('life insurance licensee');", id: 'insurance-radio'
+        .form-radio#cpa
+          .col-md-10
+            %label{:for => "cpa-radio"}
+              CPA
+          .col-md-2
+            = radio_button :agent, :agent_type, 'CPA', onclick: "render_partial('cpa');", id: 'cpa-radio'
+        .form-radio#other
+          .col-md-10
+            %label{:for => "other-radio"}
+              Other
+          .col-md-2
+            = radio_button :agent, :agent_type, 'Other', onclick: "render_partial('other');", id: 'other-radio'
+      .col-md-6.partial-wrapper.form-group
+        #partial-area
+          .partial-info.taxpayer
+            %i.fa.fa-angle-double-right
+            I am not a tax agent
+            %br
+            %i.fa.fa-angle-double-right
+            I want to find a tax agent, or connect with my current tax agent
+          .partial-info.mortgage
+            %i.fa.fa-angle-double-right
+            I am not a tax agent
+            %br
+            %i.fa.fa-angle-double-right
+            I want to find a tax agent, or connect with my current tax agent
+          .partial-info.mutual
+            %i.fa.fa-angle-double-right
+            I am not a tax agent
+            %br
+            %i.fa.fa-angle-double-right
+            I want to find a tax agent, or connect with my current tax agent
+          .partial-info.insurance
+            %i.fa.fa-angle-double-right
+            I am not a tax agent
+            %br
+            %i.fa.fa-angle-double-right
+            I want to find a tax agent, or connect with my current tax agent
+          .partial-info.cpa
+            %i.fa.fa-angle-double-right
+            I am not a tax agent
+            %br
+            %i.fa.fa-angle-double-right
+            I want to find a tax agent, or connect with my current tax agent
+          .partial-info.other
+            %i.fa.fa-angle-double-right
+            I am not a tax agent
+            %br
+            %i.fa.fa-angle-double-right
+            I want to find a tax agent, or connect with my current tax agent
+
+        = f.submit "Continue", class: "btn btn-default", id: "submit-button"
+  .progressbar{"data-perc" => "75"}
+    .bar.color4
+      %span
+    .label
+      %span
 
 
 :javascript
@@ -62,8 +124,18 @@
          $('#submit-button').show().attr('data-type', 'other');
         break;
       default:
-        $('#partial-area').hide().html('<h1>Please select a radio button </h1>').fadeIn();
+        $('#partial-area').hide().html('<h3>Please select a radio button </h3>').fadeIn();
         break;
 
     }
+
+    $('.brokerages_with_autocomplete').autocomplete({
+      source: $('.brokerages_with_autocomplete').data('autocompleteurl')
+    });
+    $('.sub_brokerages_with_autocomplete').autocomplete({
+      source: $('.sub_brokerages_with_autocomplete').data('autocompleteurl')
+    });
+    return $('.datepicker').datepicker({
+      format: 'YYYY/MM/DD'
+    });
   } 

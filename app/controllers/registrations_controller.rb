@@ -10,8 +10,11 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def update
-    @agent = current_user
-    
+    @agent = current_agent
+    if !@agent.password
+      generated_password = Devise.friendly_token.first(8)
+      @agent.password = generated_password
+    end    
     @agent.update_attributes(agent_params)
     sign_in(@agent, bypass: true) # needed for devise
     render_wizard @agent
@@ -20,7 +23,7 @@ class RegistrationsController < Devise::RegistrationsController
   private
 
   def agent_params
-    params.require(:agent).permit(:account_number, :agent_type, :designated_individual, :first_name, :is_admin, :last_name, :email, :license_number, :phone_number)
+    params.require(:agent).permit(:account_number, :agent_type, :designated_individual, :first_name, :is_admin, :last_name, :email, :license_number, :phone_number, :password, :password_confirmation)
   end
 
   def after_sign_up_path_for(resource)

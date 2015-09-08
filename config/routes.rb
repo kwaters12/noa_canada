@@ -1,13 +1,19 @@
 Rails.application.routes.draw do
 
+  as :agent do
+    match '/agent/confirmation' => 'confirmations#update', :via => :put, :as => :update_agent_confirmation
+  end
   devise_for :agents, :controllers => {:registrations => 'registrations', :confirmations => 'confirmations'} do
     put "confirm_account", :to => "confirmations#confirm_account"
   end
+  resources :agents
 
   root "homepage#index"
 
   resources :taxpayers
   resources :orders
+  resources :brokerages
+  resources :sub_brokerages
 
   resources :after_signup
 

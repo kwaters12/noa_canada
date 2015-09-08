@@ -1,0 +1,27 @@
+.sidebar
+  %h3 Agent Portal
+  .agent-info
+    = @agent.name_display
+    %br
+    = @agent.agent_type
+    %br
+    %br
+    = @sub_brokerage.name
+    %br
+    = @sub_brokerage.address
+    %br
+    = @sub_brokerage.city
+    = @sub_brokerage.province
+    %br
+    = @sub_brokerage.phone_number
+  .nav-items
+    .nav-item
+      = link_to "Order History", root_url
+    .nav-item
+      = link_to "New Order", new_order_path
+    .nav-item
+      = link_to "Customer List", taxpayers_path
+    .nav-item
+      = link_to "Dropbox Folder", root_url
+    .nav-item
+      = link_to "Account Settings", edit_agent_registration_path  

@@ -1,4 +1,6 @@
 @import "bootstrap-sprockets";
-@import 'bootstrap_and_overrides.scss';
+@import 'progressbar.scss';
 @import 'bootstrap-datetimepicker';
 @import 'datepicker.css';
+@import 'font-awesome';
+@import 'bootstrap_and_overrides.scss';

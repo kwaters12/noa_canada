@@ -1,13 +1,21 @@
-%h2 Mortgage Broker Form
 = fields_for agent do |f|
-  Office Phone Number
-  = f.text_field :phone_number
-  %br
-  Your Mortgage License #
-  = f.text_field :license_number
-  %br
-  Brokerage
-  = f.text_field :brokerage_id
-  %br
-  Sub-Brokerage
-  = f.text_field :sub_brokerage
+  .col-md-6
+    Office Phone Number
+    = f.text_field :phone_number, class: 'form-control'
+  .col-md-6
+    Your Mortgage License #
+    = f.text_field :license_number, class: 'form-control'
+  .col-md-6
+    Brokerage (Autocomplete)
+    = f.text_field :brokerage_name, value: '', class: 'brokerages_with_autocomplete form-control', data: { autocompleteUrl:  brokerages_path }
+  .col-md-6
+    Sub-Brokerage (Autocomplete)
+    = f.text_field :sub_brokerage_name, class: 'form-control', value: '', class: 'sub_brokerages_with_autocomplete form-control', 'data-autocompleteUrl' => sub_brokerages_path
+  .col-md-8
+    Are you the designated individual at your sub-brokerage?
+  .col-md-2
+    Yes
+    = f.radio_button :designated_individual, value: 'true'
+  .col-md-2
+    No
+    = f.radio_button :designated_individual, value: 'false'
