@@ -10,6 +10,10 @@ class Agent < ActiveRecord::Base
   has_many :taxpayers
   has_many :orders
 
+  def send_on_create_confirmation_instructions
+    
+  end
+
   def name_display
     if first_name || last_name
       "#{first_name} #{last_name}".strip
