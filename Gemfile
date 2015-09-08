@@ -21,7 +21,7 @@ gem 'rails_admin'
 gem 'dropbox-api'
 gem 'paperclip'
 gem 'dropbox-sdk'
-gem 'rails_12factor'
+gem 'rails_12factor', group: :production
 gem 'docusign_rest'
 gem 'faker'
 gem 'quiet_assets'
