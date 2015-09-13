@@ -1,12 +1,16 @@
 Rails.application.routes.draw do
 
+  mount Judge::Engine => '/judge'
+
   as :agent do
     match '/agent/confirmation' => 'confirmations#update', :via => :put, :as => :update_agent_confirmation
   end
   devise_for :agents, :controllers => {:registrations => 'registrations', :confirmations => 'confirmations'} do
     put "confirm_account", :to => "confirmations#confirm_account"
   end
-  resources :agents
+  resources :agents do
+    resources :steps, controller: 'after_signup'
+  end
 
   root "homepage#index"
 

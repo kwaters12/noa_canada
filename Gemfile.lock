@@ -128,6 +128,11 @@ GEM
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
     json (1.8.3)
+    judge (2.1.0)
+      rails (>= 3.1)
+    judge-simple_form (1.0.0)
+      judge (~> 2.0)
+      simple_form (>= 2.0)
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -291,6 +296,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   jquery-turbolinks
+  judge-simple_form
   momentjs-rails
   paperclip
   paypal-sdk-rest

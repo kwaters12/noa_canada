@@ -6,30 +6,45 @@
       .form-fields
         %h2 Personal Information
         .personal-form
-          %p Please provide some basic information so we can get your account creation started.
-          %hr
-          = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-            = f.error_notification 
+          %h3 Please provide some basic information so we can get your account creation started.
+          = form_for(resource, as: resource_name, url: registration_path(resource_name), builder: Judge::FormBuilder) do |f|
+            / = f.error_notification 
             .row
-              .col-md-8.col-md-offset-2
+              .col-md-10.col-md-offset-1
                 .form-inputs
                   .col-md-3
                     First Name
-                    = f.input :first_name, required: true, class: 'form-control', label: false
+                    = f.text_field :first_name, autofocus: true, class: 'form-control' , label: false, :validate => true
+                    .error-box.agent_first_name_errors
                   .col-md-3
                     Last Name
-                    = f.input :last_name, required: true, class: 'form-control', label: false
+                    = f.text_field :last_name, class: 'form-control' , label: false, :validate => true
+                    .error-box.agent_last_name_errors
                   .col-md-3
                     Email
-                    = f.input :email, required: true, autofocus: true, class: 'form-control', label: false
-                  /= f.input :email_confirmation, required: true
+                    = f.text_field :email, class: 'form-control' , label: false, :validate => true
+                    .error-box.agent_email_errors
+                  /= f.text_field :email_confirmation, required: true
                   .col-md-3
                     Cell Phone Number
-                    = f.input :phone_number, required: true, class: 'form-control', label: false
-            
-
+                    = f.text_field :phone_number, class: 'form-control phone', label: false, :validate => true
+                    .error-box.agent_phone_number_errors
+                  .col-md-12.terms
+                    By submitting this information, I agree to NOA Canada's:
+                    / Large modal
+                    %a{"data-target" => ".bs-example-modal-lg", "data-toggle" => "modal", :type => "button", class: 'pointer'} Terms and Conditions
+                    .modal.fade.bs-example-modal-lg{"aria-labelledby" => "myLargeModalLabel", :role => "dialog", :tabindex => "-1"}
+                      .modal-dialog.modal-lg
+                        .modal-content
+                          = render 'terms_and_conditions'
+                    and 
+                    %a{"data-target" => ".bs-example-modal-lg-2", "data-toggle" => "modal", :type => "button", class: 'pointer'} Privacy Policy .
+                    .modal.fade.bs-example-modal-lg-2{"aria-labelledby" => "myLargeModal2Label", :role => "dialog", :tabindex => "-2"}
+                      .modal-dialog.modal-lg
+                        .modal-content
+                          = render 'privacy_policy'
             .form-actions
-              = f.button :submit, "Sign up", class: 'btn btn-default'
+              = f.submit "Sign up", class: 'btn btn-default submit-btn'
               .progressbar{"data-perc" => "50"}
                 .bar.color4
                   %span

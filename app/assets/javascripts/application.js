@@ -11,6 +11,10 @@
 // about supported directives.
 //
 //= require jquery
+//= require bootstrap-sprockets
+//= require underscore
+//= require json2
+//= require judge
 //= require jquery_ujs
 //= require jquery-ui/autocomplete
 //= require turbolinks
@@ -18,5 +22,6 @@
 //= require moment
 //= require bootstrap-datetimepicker
 //= require jquery.screwdefaultbuttonsV2
+//= require jquery.mask.min
 //= require form_functions
 //= require_tree .

@@ -21,44 +21,51 @@
                 = order.taxpayer.first_name       
       - else
         %h2 Welcome to NOA Canada
-        .col-md-5.col-md-offset-1.cta-left
-          %h3 Getting your last three years' Notices of Assessments couldn't be easier. <br>
-          .cta-title
-            Simply follow these steps:
-        .col-md-6
+        .cta-heading
+          .col-md-12
+            %h3 Getting your last three years' Notices of Assessments couldn't be easier. <br>
+            / .cta-title
+            /   Simply follow these steps:
+        .col-md-12
           .cta-list
-            .cta-list-item
-              .col-md-1
-                <strong>1</strong> 
-              .col-md-11
-                Sign up as a taxpayer or as an agent. 
-            .cta-list-item
-              .col-md-1
-                <strong>2</strong> 
-              .col-md-11
-                Add the required taxpayer information.
-            .cta-list-item
-              .col-md-1
-                <strong>3</strong> 
-              .col-md-11
-                Provide a signed T103 document, or use our PDF creator to create complete a T103 online.
+            = link_to "Create Your Free Account", new_agent_registration_path, class: 'btn btn-default'
+            %hr
+            .col-md-4
+              .cta-list-item
+                = image_tag('icon1.png')
+                %p 1. Sign Up
+            .col-md-4
+              .cta-list-item
+                = image_tag('icon2.png')
+                %p 2. Provide Client Information
+            .col-md-4
+              .cta-list-item
+                = image_tag('icon3.png')
+                %p 3. Provide signed T1013. 
+            %hr
+        .cta-heading
+          %h3 We do the rest!
 
         .col-md-12.text-center.cta          
-          .col-md-5.col-md-offset-1
-            .cta-selection
-              %h3 <strong>New NOA Canada Agent Sign-Up</strong>
-              = link_to "Create an Account", new_agent_registration_path, class: 'btn btn-default'
-          .col-md-5   
-            .cta-selection
-              %h3 <strong>Returning User</strong>
-              = form_tag session_path(:agent) do
-                = text_field_tag 'agent[email]'
-                %br
-                = password_field_tag 'agent[password]'
+          / .col-md-5.col-md-offset-1
+          /   .cta-selection
+          /     %h3 <strong>New NOA Canada Agent Sign-Up</strong>
+          /     = link_to "Create an Account", new_agent_registration_path, class: 'btn btn-default'
+          / .col-md-5   
+          .cta-selection
+            = form_tag session_path(:agent) do
+              .col-md-3
+                %h3 <strong>Returning User</strong>
+              .col-md-3
+                Email:
+                = text_field_tag 'agent[email]', nil, class: 'form-control'
+              .col-md-3
+                Password
+                = password_field_tag 'agent[password]', nil, class: 'form-control'
+              .col-md-3
+                %button.btn.btn-default Sign in
+                = link_to "Forgot your password?", new_password_path(:agent)
                 %br
                 = check_box_tag 'agent[remember_me]'
                 = label_tag 'agent[remember_me]', 'Remember me'
-                %br
-                %button Sign in
-                = link_to "Forgot your password?", new_password_path(:agent)
-
+        = render 'faqs'

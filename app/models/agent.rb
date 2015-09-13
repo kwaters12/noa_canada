@@ -5,6 +5,17 @@ class Agent < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable
 
+  attr_accessor :form_step
+
+  validates :first_name, presence: true
+  validates :first_name, length: { in: 2..30 }
+  validates :last_name, presence: true
+  validates :last_name, length: { in: 2..30 }
+  validates :phone_number, presence: true
+  validates :phone_number, length: { is: 14 }
+  # validates :license_number, presence: true, if: -> { required_for_step?(:choose_type)}
+  # validates :sub_brokerage_name, presence: true, if: -> { required_for_step?(:choose_type)}
+
   belongs_to :sub_brokerage
   belongs_to :brokerage
   has_many :taxpayers

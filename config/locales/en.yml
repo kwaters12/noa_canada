@@ -21,3 +21,21 @@
 
 en:
   hello: "Hello world"
+
+  activerecord:
+    attributes:
+      agent:
+        email: "E-mail address"
+    errors:
+      models:
+        agent:
+          attributes:
+            first_name:
+              blank: "is required"
+            last_name:
+              blank: "is required"
+            email:
+              blank: "is required"
+            phone_number:
+              blank: "is required"
+              wrong_length: "area code + phone number"

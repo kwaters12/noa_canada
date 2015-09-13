@@ -1,6 +1,6 @@
 .container
   .form-fields    
-    = simple_form_for @agent, url: wizard_path, id: "user-form-part1" do |f|
+    = form_for(@agent, url: wizard_path, id: "user-form-part1", builder: Judge::FormBuilder) do |f|
       %h2 Please Select a Radio Button
       .col-md-6.form-radios      
         .form-radio#taxpayer
@@ -49,34 +49,34 @@
             I want to find a tax agent, or connect with my current tax agent
           .partial-info.mortgage
             %i.fa.fa-angle-double-right
-            I am not a tax agent
+            I am a mortgage broker
             %br
             %i.fa.fa-angle-double-right
-            I want to find a tax agent, or connect with my current tax agent
+            I have my license number
           .partial-info.mutual
             %i.fa.fa-angle-double-right
-            I am not a tax agent
+            I am a mutual fund licensee
             %br
             %i.fa.fa-angle-double-right
-            I want to find a tax agent, or connect with my current tax agent
+            I have my license number
           .partial-info.insurance
             %i.fa.fa-angle-double-right
-            I am not a tax agent
+            I am a life insurance licensee
             %br
             %i.fa.fa-angle-double-right
-            I want to find a tax agent, or connect with my current tax agent
+            I have my  license number
           .partial-info.cpa
             %i.fa.fa-angle-double-right
-            I am not a tax agent
+            I am a Certified Professional Accountant
             %br
             %i.fa.fa-angle-double-right
-            I want to find a tax agent, or connect with my current tax agent
+            I have my business license number
           .partial-info.other
             %i.fa.fa-angle-double-right
-            I am not a tax agent
+            I am an alternate representative
             %br
             %i.fa.fa-angle-double-right
-            I want to find a tax agent, or connect with my current tax agent
+            I have information about my business
 
         = f.submit "Continue", class: "btn btn-default", id: "submit-button"
   .progressbar{"data-perc" => "75"}
@@ -100,6 +100,7 @@
   function render_partial(element) {
     switch(element) {
       case 'taxpayer':
+        $('#submit-button').hide();
         $('#partial-area').hide().html("#{escape_javascript(render 'taxpayer_form')}").fadeIn();
         break;
       case 'mortgage broker':

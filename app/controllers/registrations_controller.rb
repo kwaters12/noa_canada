@@ -20,6 +20,19 @@ class RegistrationsController < Devise::RegistrationsController
     render_wizard @agent
   end
 
+  # def create 
+  #   @agent = Agent.new agent_params
+  #   # @taxpayer = Taxpayer.new taxpayer_params
+  #   if @agent.save
+  #     @agent.skip_confirmation!
+  #     # render :json=> agent.as_json(:auth_token=>agent.authentication_token, :email=>agent.email), :status=>201
+  #     redirect_to after_signup_path(:choose_type, :agent_id => @agent.id)
+  #   else
+  #     warden.custom_failure!
+  #     render :json=> @agent.errors, :status=>422
+  #   end
+  # end
+
   private
 
   def agent_params
@@ -30,19 +43,7 @@ class RegistrationsController < Devise::RegistrationsController
     after_signup_path(:choose_type)
   end  
 
-  # def create
- 
-  #   @agent = Agent.new agent_params
-  #   @taxpayer = Taxpayer.new taxpayer_params
-  #   if @agent.save
-  #     @agent.skip_confirmation!
-  #     # render :json=> agent.as_json(:auth_token=>agent.authentication_token, :email=>agent.email), :status=>201
-  #     redirect_to after_signup_path(:choose_type, :agent_id => @agent.id)
-  #   else
-  #     warden.custom_failure!
-  #     render :json=> agent.errors, :status=>422
-  #   end
-  # end
+  
 
   # private
  

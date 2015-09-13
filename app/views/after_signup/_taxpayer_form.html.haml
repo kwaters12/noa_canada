@@ -1,5 +1,8 @@
 / = fields_for agent do |f|
-NOA Canada is a service for Mortgage Brokers and other Tax Agents, so if you are a taxpayer and you do not have a tax agent, click here:
-= link_to "Find Me a Tax Agent", agent_connect_path, class: 'btn btn-default', id: 'connect-button'
-Or, if you have a tax agent, and would like to find them with our handy Agent Finder, click here:
-= link_to "I have a Tax Agent", agent_lookup_path, class: 'btn btn-default', id: 'lookup-button'
+.taxpayer-form
+  NOA Canada is a service for Mortgage Brokers and other Tax Agents, so if you are a taxpayer and you do not have a tax agent, click here:
+  .taxpayer-btn
+    = link_to "Find Me a Tax Agent", agents_path, class: 'btn btn-default', id: 'connect-button'
+  Or, if you have a tax agent, and would like to find them with our handy Agent Finder, click here:
+  .taxpayer-btn
+    = link_to "I have a Tax Agent", agents_path, class: 'btn btn-default', id: 'lookup-button'

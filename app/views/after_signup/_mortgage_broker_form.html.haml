@@ -1,21 +1,26 @@
-= fields_for agent do |f|
-  .col-md-6
-    Office Phone Number
-    = f.text_field :phone_number, class: 'form-control'
-  .col-md-6
-    Your Mortgage License #
-    = f.text_field :license_number, class: 'form-control'
-  .col-md-6
-    Brokerage (Autocomplete)
-    = f.text_field :brokerage_name, value: '', class: 'brokerages_with_autocomplete form-control', data: { autocompleteUrl:  brokerages_path }
-  .col-md-6
-    Sub-Brokerage (Autocomplete)
-    = f.text_field :sub_brokerage_name, class: 'form-control', value: '', class: 'sub_brokerages_with_autocomplete form-control', 'data-autocompleteUrl' => sub_brokerages_path
-  .col-md-8
-    Are you the designated individual at your sub-brokerage?
-  .col-md-2
-    Yes
-    = f.radio_button :designated_individual, value: 'true'
-  .col-md-2
-    No
-    = f.radio_button :designated_individual, value: 'false'
+= fields_for(agent, builder: Judge::FormBuilder) do |f|
+  .agent-form
+    .col-md-6
+      %strong Office Phone Number
+      = f.text_field :phone_number, class: 'form-control phone', label: false, :validate => true
+      .error-box.agent_phone_number_errors
+    .col-md-6
+      %strong Your Mortgage License #
+      = f.text_field :license_number, class: 'form-control', required: true
+      .error-box.agent_license_number_errors
+    .col-md-6
+      %strong Brokerage (Autocomplete)
+      = f.text_field :brokerage_name, value: '', class: 'brokerages_with_autocomplete form-control', data: { autocompleteUrl:  brokerages_path }, required: true
+      .error-box.agent_brokerage_name_errors
+    .col-md-6
+      %strong Sub-Brokerage (Autocomplete)
+      = f.text_field :sub_brokerage_name, class: 'form-control', value: '', class: 'sub_brokerages_with_autocomplete form-control', 'data-autocompleteUrl' => sub_brokerages_path, required: true
+      .error-box.agent_sub_brokerage_name_errors
+    .col-md-8
+      Are you the designated individual at your sub-brokerage?
+    .col-md-2
+      Yes
+      = f.radio_button :designated_individual, value: 'true'
+    .col-md-2
+      No
+      = f.radio_button :designated_individual, value: 'false'
