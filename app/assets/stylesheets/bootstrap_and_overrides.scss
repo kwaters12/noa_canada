@@ -166,6 +166,8 @@ label {
 }
 #partial-area {
   padding-top:5px;
+  display: inline-block;
+  clear: both;
 }
 .partial-wrapper {
   text-align: left;
@@ -506,6 +508,12 @@ h1 {
   &:active {
     color: white;
   }
+  &:focus {
+    color: white;
+  }
+}
+.btn-default:active:hover, .btn-default:active:focus {
+  color: white;
 }
 .submit-btn { width: 90%; margin: 0 auto;}
 ul.ui-autocomplete {

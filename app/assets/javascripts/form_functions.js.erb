@@ -93,16 +93,23 @@ $(document).ready(function() {
     var valSuccess = 0;
     for (i = 0; i < validations.length; i++) {
       for (j = 0; j < validations[i].validations.length; j ++) {
-        valLen++;
-        if (validations[i].validations[j].messages.length < 1) {
+
+        if (validations[i].validations[j].messages != null) {
+          valLen++;
+        }
+        if ((validations[i].validations[j].messages != null) && validations[i].validations[j].messages.length < 1) {
           valSuccess ++;          
         }
-        if (valLen === valSuccess) {
-           $('#new_agent').submit();
-        }
+
         
       }
-      
+
+    
+    }
+    console.log(valLen);
+    console.log(valSuccess);
+    if (valLen === valSuccess) {
+       $('#new_agent').submit();
     }
     
   });
