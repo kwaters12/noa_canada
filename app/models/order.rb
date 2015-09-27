@@ -2,16 +2,20 @@ class Order < ActiveRecord::Base
   belongs_to :agent
   belongs_to :taxpayer
 
-  has_attached_file :document, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  has_attached_file :document, default_url: "/images/:style/missing.png"
   validates_attachment :document, :content_type => { :content_type => %w(application/pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document) }
 
   serialize :notification_params, Hash
+
+  def order_number 
+    100000 + "#{id}".to_i
+  end
 
   def paypal_url(return_path)
     Rails.logger.info("%%%%%%%%%%%%%%%%%%%%%%")
     Rails.logger.info(id)
     Rails.logger.info("%%%%%%%%%%%%%%%%%%%%%%")
-    invoice_id = 1000 + id
+    invoice_id = 10000 + id
     values = {
         business: "kellywaters-facilitator@gmail.com",
         cmd: "_xclick",

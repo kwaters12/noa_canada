@@ -24,29 +24,17 @@ class TaxpayersController < ApplicationController
       @order = @agent.orders.new(order_params)
       @order.status = "Started"
       @order.agent_id = current_agent.id
-      @order.taxpayer_id = @taxpayer.id 
-      if !params[:order]
-        respond_to do |format|
-          format.html { 
-            generate_pdf(@taxpayer, @order)
-            # redirect_to order_path(@order), notice: "Thank You!" 
-          }
-          format.js
-          format.json  { render json: @taxpayer.to_json(include: @order) }
-        end
-      else
-        @order.save
-        generate_pdf(@taxpayer, @order)
-        handle_payment(params[:payment_method], @order)
-        respond_to do |format|
-          format.html { 
-            # redirect_to order_path(@order), notice: "Thank You!" 
-            redirect_to root_url
-          }
-          format.js
-          format.json  { render json: @taxpayer.to_json(include: @order) }   
-        end 
-      end    
+      @order.taxpayer_id = @taxpayer.id
+      @order.save         
+      generate_pdf(@taxpayer, @order)          
+      respond_to do |format|
+        format.html { 
+          # redirect_to root_url
+          # handle_payment(params[:payment_method], @order)
+        }
+        format.js
+        format.json  { render json: @taxpayer.to_json(include: @order) }
+      end            
     else
       flash.now[:error] = "Sorry, your application was not saved"
       redirect_to new_order_path
@@ -82,12 +70,15 @@ class TaxpayersController < ApplicationController
   end
 
   def order_params
-    params.require(:taxpayer).permit([:document])
+    params.require(:taxpayer).permit([:document, :order_number])
   end
 
   def generate_pdf(taxpayer, order)
-    order.pdf_path = pdf_path = OrderPDFForm.new(taxpayer).export
-
+    if !params[:taxpayer][:document]
+      order.pdf_path = pdf_path = OrderPDFForm.new(taxpayer).export
+    else    
+      order.pdf_path = pdf_path = "#{Rails.root}/public#{order.document.url.split('?')[0]}"
+    end
     
     @dropbox_client = DropboxClient.new('fOObVAMBomkAAAAAAAAAWHCIPbIWTv7bwD3nHivV2EXLwV0WgKCJRYK9ykrWo8Ru')
 
@@ -104,8 +95,7 @@ class TaxpayersController < ApplicationController
 
     
     order.save
-    handle_payment(params[:payment_method], order)
-    taxpayer.save  
+    handle_payment(params[:payment_method], order)  
     
   end
 
@@ -124,9 +114,6 @@ class TaxpayersController < ApplicationController
   def send_link(order)
     # shareable = @dropbox_client.shares(folder_name + '/' + file_name)
     shareable = @dropbox_client.shares(folder_name)
-    Rails.logger.info("$$$$$$$$$$$$$")
-    Rails.logger.info(shareable)
-    Rails.logger.info("$$$$$$$$$$$$$")
     order.dropbox_url = shareable['url']   
     # ClientMailer.dropbox_link(@client, shareable['url']).deliver_now
   end

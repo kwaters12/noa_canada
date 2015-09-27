@@ -23,7 +23,7 @@ class OrdersController < ApplicationController
     end
     @order = @agent.orders.new(order_params)
     @order.taxpayer = @taxpayer
-    
+    @order.order_number = 100000 + "#{@order.id}".to_f
     if @order.save
       respond_to do |format|
         format.html { redirect_to @order.paypal_url(order_path(@order, :format => 'pdf')) }

@@ -1,5 +1,10 @@
 .home-dashboard
-  %h3 Order History
+  .row
+    .col-md-9.col-sm-9
+      %h3 Order History
+    .col-md-3.col-sm-3
+      .btn.btn-primary
+        = link_to "New NOA Order", new_order_path
   .orders
     .orders-tab.orders-all
       = link_to "All Orders", '', onclick: "render_orders('all'); return false;", class: 'active'
