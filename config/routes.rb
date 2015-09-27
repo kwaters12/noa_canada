@@ -32,6 +32,9 @@ Rails.application.routes.draw do
 
   post '/orders/:id' => 'orders#show'
   post '/hook' => 'orders#hook'
+
+  get '/dropbox/authorize' => 'dropbox#authorize', as: 'dropbox_auth'
+  get '/dropbox/callback' => 'dropbox#callback', as: 'dropbox_callback'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

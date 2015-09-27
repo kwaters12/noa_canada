@@ -105,7 +105,7 @@
         break;
       case 'mortgage broker':
          $('#partial-area').hide().html("#{escape_javascript(render 'mortgage_broker_form', agent: @agent)}").fadeIn();
-         $('#submit-button').show().attr('data-type', 'mutual-fund-licensee');
+         $('#submit-button').show().attr('data-type', 'mortgage-broker');
         break;
       case 'mutual fund licensee':
          $('#partial-area').hide().html("#{escape_javascript(render 'mutual_fund_licensee_form', agent: @agent)}").fadeIn();

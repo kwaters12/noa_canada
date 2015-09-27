@@ -4,4 +4,5 @@
       = render '/homepage/sidebar'
     .col-md-10
       = @order.taxpayer.first_name
-      %iframe{ src: @order.docusign_url, class: 'document_iframe' }
+      - if params[:order]        
+        %iframe{ src: @order.docusign_url, class: 'document_iframe' }

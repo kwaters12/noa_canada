@@ -28,6 +28,7 @@ gem 'quiet_assets'
 gem 'jquery-turbolinks'
 gem "font-awesome-rails"
 gem 'judge-simple_form'
+gem 'figaro'
 
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'

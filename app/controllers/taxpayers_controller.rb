@@ -36,6 +36,7 @@ class TaxpayersController < ApplicationController
         end
       else
         @order.save
+        generate_pdf(@taxpayer, @order)
         handle_payment(params[:payment_method], @order)
         respond_to do |format|
           format.html { 
@@ -93,14 +94,15 @@ class TaxpayersController < ApplicationController
     folder = @dropbox_client.search('/', folder_name)
     if folder
       move_pdf(pdf_path)
-      send_link
+      send_link(order)
     else
       @dropbox_client.file_create_folder(folder_name)
 
       move_pdf(pdf_path)
-      send_link
-   
+      send_link(order)  
     end
+
+    
     order.save
     handle_payment(params[:payment_method], order)
     taxpayer.save  
@@ -119,8 +121,13 @@ class TaxpayersController < ApplicationController
     @dropbox_client.put_file('/' + folder_name + '/' + file_name, open(pdf_path), overwrite=true)
   end
 
-  def send_link
-    shareable = @dropbox_client.shares(folder_name + '/' + file_name)    
+  def send_link(order)
+    # shareable = @dropbox_client.shares(folder_name + '/' + file_name)
+    shareable = @dropbox_client.shares(folder_name)
+    Rails.logger.info("$$$$$$$$$$$$$")
+    Rails.logger.info(shareable)
+    Rails.logger.info("$$$$$$$$$$$$$")
+    order.dropbox_url = shareable['url']   
     # ClientMailer.dropbox_link(@client, shareable['url']).deliver_now
   end
 end

@@ -1,0 +1,37 @@
+.home-dashboard
+  %h3 Order History
+  .orders
+    .orders-tab.orders-all
+      = link_to "All Orders", '', onclick: "render_orders('all'); return false;", class: 'active'
+    .orders-tab.orders-complete
+      = link_to "Complete Orders", '', onclick: "render_orders('complete'); return false;"
+    .orders-tab.orders-incomplete
+      = link_to "Incomplete Orders", '', onclick: "render_orders('incomplete'); return false;"
+    #orders-area
+      = render 'all_orders'
+
+:javascript
+  function render_orders(element) {
+    switch(element) {
+      case 'all':
+        $('.orders-all').find('a').addClass('active');
+        $('.orders-tab').not($('.orders-all')).find('a').removeClass('active');
+        $('#orders-area').html("#{escape_javascript(render 'all_orders')}");
+        break;
+      case 'complete':
+        $('.orders-complete').find('a').addClass('active');
+        $('.orders-tab').not($('.orders-complete ')).find('a').removeClass('active');
+        $(this).addClass('active')
+        $('#orders-area').html("#{escape_javascript(render 'complete_orders', agent: @agent)}");         
+        break;
+      case 'incomplete':
+        $('.orders-incomplete').find('a').addClass('active');
+        $('.orders-tab').not($('.orders-incomplete')).find('a').removeClass('active');
+        $('#orders-area').html("#{escape_javascript(render 'incomplete_orders', agent: @agent)}");         
+        break;
+      default:
+        $('#orders-area').html("#{escape_javascript(render 'all_orders')}");
+        break;
+
+    }
+  }

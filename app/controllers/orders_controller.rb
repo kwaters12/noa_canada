@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   before_action :find_agent, :find_sub_brokerage
   skip_before_filter :verify_authenticity_token, only: [:show]
+  protect_from_forgery except: :show 
 
   def index
     @orders = Order.all
@@ -24,19 +25,17 @@ class OrdersController < ApplicationController
     @order.taxpayer = @taxpayer
     
     if @order.save
-
-        # generate_order(@order)
-        respond_to do |format|
-          format.html { redirect_to @order.paypal_url(order_path(@order, :format => 'pdf')) }
-          format.js
-          format.json  { render json: @taxpayer.to_json(include: @order) }   
-        end 
-        #redirect_to root_url, notice: "Thank You!"
-        
-      else
-        flash.now[:error] = "Sorry, your application was not saved"
-        render :new
-      end
+      respond_to do |format|
+        format.html { redirect_to @order.paypal_url(order_path(@order, :format => 'pdf')) }
+        format.js
+        format.json  { render json: @taxpayer.to_json(include: @order) }   
+      end 
+      #redirect_to root_url, notice: "Thank You!"
+      
+    else
+      flash.now[:error] = "Sorry, your application was not saved"
+      render :new
+    end
     
     else
 
@@ -44,12 +43,16 @@ class OrdersController < ApplicationController
 
   def show 
     @order = Order.find(params[:id])
-    if @order.document.exists? && @order.docusign_url.nil?
+    if @order.document.exists? && params[:payment_status] == "Completed"
+      redirect_to root_url, notice: "Your order has been received. You can view the details below."
+    elsif  @order.docusign_url.nil? && @order.document.nil?
       attach_docusign_signature(@order)
-    else
+    else !@order.docusign_url.nil?
       @url = @order.docusign_url
     end
   end
+
+  
 
   def docusign_response
     utility = DocusignRest::Utility.new
@@ -66,6 +69,32 @@ class OrdersController < ApplicationController
   end
 
   private
+
+  def generate_order(client, order)
+    order.pdf_path = client.pdf_path = pdf_path = NoaApplicationPDFForm.new(order).export
+
+    Rails.logger.info("#*******************")
+    Rails.logger.info(order.pdf_path)
+    Rails.logger.info("#*******************")
+    @dropbox_client = DropboxClient.new('fOObVAMBomkAAAAAAAAAWHCIPbIWTv7bwD3nHivV2EXLwV0WgKCJRYK9ykrWo8Ru')
+
+    folder = @dropbox_client.search('/', folder_name)
+    if folder
+      move_pdf(pdf_path)
+      send_link
+    else
+      @dropbox_client.file_create_folder(folder_name)
+
+      move_pdf(pdf_path)
+      send_link
+   
+    end
+    order.save
+    client.save
+
+   
+    
+  end
 
   def find_agent
     @agent = current_agent

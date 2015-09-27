@@ -15,10 +15,7 @@
                   Click this big blue button to make your first application:
                   = link_to "Apply For Your First NOA", new_order_path, class: 'btn btn-default'
             - else
-              %h3 Your Orders:
-              - @orders.each do |order|
-                = order.taxpayer.last_name
-                = order.taxpayer.first_name       
+              = render 'dashboard'    
       - else
         %h2 Welcome to NOA Canada
         .cta-heading

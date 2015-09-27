@@ -1,0 +1,28 @@
+- if @complete_orders
+  .row
+    .col-md-2
+      Customer
+    .col-md-2
+      Order #
+    .col-md-2
+      Purchased On
+    .col-md-3
+      Order Status
+    .col-md-3
+      Dropbox Folder 
+  %br
+  - @complete_orders.each do |order|
+    / = link_to "View Order", order_path(order)
+    .row
+      .col-md-2
+        = order.taxpayer.name_display
+      .col-md-2
+        = order.order_number
+      .col-md-2
+        = order.purchased_at
+      .col-md-3
+        = order.status
+      .col-md-3
+        = order.dropbox_url
+- else 
+  You have no complete orders

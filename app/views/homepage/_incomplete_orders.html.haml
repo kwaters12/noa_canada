@@ -1,0 +1,5 @@
+- if @incomplete_orders
+  - @incomplete_orders.each do |order|
+    = order.first_name
+- else 
+  You have no incomplete orders
