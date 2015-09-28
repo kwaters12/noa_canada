@@ -8,6 +8,6 @@ class HomepageController < ApplicationController
     Rails.logger.info("$$$$$$$$$$$$$$$$")
     Rails.logger.info(@complete_orders)
     Rails.logger.info("$$$$$$$$$$$$$$$$")
-    @incomplete_orders = Order.where(status: "Incomplete")
+    @incomplete_orders = Order.where(status: "Started")
   end
 end

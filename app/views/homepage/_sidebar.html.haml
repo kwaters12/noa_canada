@@ -1,5 +1,4 @@
 .sidebar
-  %h3 Agent Portal
   .agent-info
     = @agent.name_display
     %br
@@ -16,12 +15,12 @@
     = @sub_brokerage.phone_number
   .nav-items
     .nav-item
-      = link_to "Order History", root_url
+      = link_to "Order History", root_url, :class => ('active' if controller_name === 'homepage')
     .nav-item
-      = link_to "New Order", new_order_path
+      = link_to "New Order", new_order_path, :class => ('active' if controller_name === 'orders')
     .nav-item
-      = link_to "Customer List", taxpayers_path
+      = link_to "Customer List", taxpayers_path, :class => ('active' if controller_name === 'taxpayers')
+    / .nav-item
+    /   = link_to "Dropbox Folder", root_url
     .nav-item
-      = link_to "Dropbox Folder", root_url
-    .nav-item
-      = link_to "Account Settings", edit_agent_registration_path  
+      = link_to "Account Settings", edit_agent_registration_path, :class => ('active' if controller_name === 'registration')

@@ -4,9 +4,10 @@
     .row
       
       .form-fields
-        %h2 Personal Information
+        / %h2 Personal Information
         .personal-form
-          %h3 Please provide some basic information so we can get your account creation started.
+          .cta-heading
+            %h3 Please provide some basic information so we can get your account creation started.
           = form_for(resource, as: resource_name, url: registration_path(resource_name), builder: Judge::FormBuilder) do |f|
             / = f.error_notification 
             .row
@@ -44,6 +45,7 @@
                         .modal-content
                           = render 'privacy_policy'
             .form-actions
+              .col-md-3.col-md-offset-3
               = f.submit "Sign up", class: 'btn btn-default submit-btn'
               .progressbar{"data-perc" => "50"}
                 .bar.color4
