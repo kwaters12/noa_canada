@@ -31,22 +31,24 @@
                     = f.text_field :phone_number, class: 'form-control phone', label: false, :validate => true
                     .error-box.agent_phone_number_errors
                   .col-md-12.terms
-                    By submitting this information, I agree to NOA Canada's:
-                    / Large modal
-                    %a{"data-target" => ".bs-example-modal-lg", "data-toggle" => "modal", :type => "button", class: 'pointer'} Terms and Conditions
-                    .modal.fade.bs-example-modal-lg{"aria-labelledby" => "myLargeModalLabel", :role => "dialog", :tabindex => "-1"}
-                      .modal-dialog.modal-lg
-                        .modal-content
-                          = render 'terms_and_conditions'
-                    and 
-                    %a{"data-target" => ".bs-example-modal-lg-2", "data-toggle" => "modal", :type => "button", class: 'pointer'} Privacy Policy .
-                    .modal.fade.bs-example-modal-lg-2{"aria-labelledby" => "myLargeModal2Label", :role => "dialog", :tabindex => "-2"}
-                      .modal-dialog.modal-lg
-                        .modal-content
-                          = render 'privacy_policy'
+                    .col-md-9
+                      By submitting this information, I agree to NOA Canada's:
+                      / Large modal
+                      %a{"data-target" => ".bs-example-modal-lg", "data-toggle" => "modal", :type => "button", class: 'pointer'} Terms and Conditions
+                      .modal.fade.bs-example-modal-lg{"aria-labelledby" => "myLargeModalLabel", :role => "dialog", :tabindex => "-1"}
+                        .modal-dialog.modal-lg
+                          .modal-content
+                            = render 'terms_and_conditions'
+                      and 
+                      %a{"data-target" => ".bs-example-modal-lg-2", "data-toggle" => "modal", :type => "button", class: 'pointer'} Privacy Policy .
+                      .modal.fade.bs-example-modal-lg-2{"aria-labelledby" => "myLargeModal2Label", :role => "dialog", :tabindex => "-2"}
+                        .modal-dialog.modal-lg
+                          .modal-content
+                            = render 'privacy_policy'
+                    .col-md-3
+                      = f.submit "Sign up", class: 'btn btn-primary btn-raised submit-btn'
             .form-actions
-              .col-md-3.col-md-offset-3
-              = f.submit "Sign up", class: 'btn btn-default submit-btn'
+              
               .progressbar{"data-perc" => "50"}
                 .bar.color4
                   %span

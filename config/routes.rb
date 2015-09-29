@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
   get :agent_connect, to: "agents#connect"
   get :agent_lookup, to: "agents#lookup"
+  get '/faqs' => 'static_pages#faqs', as: 'faqs'
 
   devise_scope :agent do
     put "/confirm" => "confirmations#confirm"

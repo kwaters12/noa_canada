@@ -2,7 +2,7 @@ class TaxpayersController < ApplicationController
   before_action :find_taxpayer, except: [:index, :new, :create]
   before_action :find_agent
   require 'dropbox_sdk'
-
+  
   def index
     @agent = current_agent
     @sub_brokerage = @agent.sub_brokerage

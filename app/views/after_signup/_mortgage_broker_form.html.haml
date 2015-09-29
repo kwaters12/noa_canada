@@ -1,13 +1,13 @@
 = fields_for(agent, builder: Judge::FormBuilder) do |f|
   .agent-form
-    .col-md-6
+    .col-md-12
       %strong Office Phone Number
       = f.text_field :phone_number, class: 'form-control phone', label: false, :validate => true
       .error-box.agent_phone_number_errors
-    .col-md-6
-      %strong Your Mortgage License #
-      = f.text_field :license_number, class: 'form-control', required: true
-      .error-box.agent_license_number_errors
+    / .col-md-6
+    /   %strong Your Mortgage License #
+    /   = f.text_field :license_number, class: 'form-control', required: true
+    /   .error-box.agent_license_number_errors
     .col-md-6
       %strong Brokerage
       = f.text_field :brokerage_name, value: '', class: 'brokerages_with_autocomplete form-control', data: { autocompleteUrl:  brokerages_path }, required: true

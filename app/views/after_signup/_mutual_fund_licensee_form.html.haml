@@ -1,13 +1,13 @@
 = fields_for agent do |f|
   .agent-form
-    .col-md-6
+    .col-md-12
       %strong Office Phone Number
       = f.text_field :phone_number, class: 'form-control phone', label: false, :validate => true
       .error-box.agent_phone_number_errors
-    .col-md-6
-      %strong Your License #
-      = f.text_field :license_number, class: 'form-control', required: true
-      .error-box.agent_license_number_errors
+    / .col-md-6
+    /   %strong Your License #
+    /   = f.text_field :license_number, class: 'form-control', required: true
+    /   .error-box.agent_license_number_errors
     .col-md-12
       %strong Office Branch
       = f.text_field :sub_brokerage_name, class: 'form-control', value: '', class: 'sub_brokerages_with_autocomplete form-control', 'data-autocompleteUrl' => sub_brokerages_path, required: true

@@ -1,36 +1,41 @@
-= simple_form_for @taxpayer do |f|  
-  .col-md-6
-    Do you have a completed T1013 Form?
-    %br
-    / = fields_for @order, :html => {:multipart => true} do |g|
-    Click below to attach it
-    = f.file_field :document
-  .col-md-6
-    .row
-      Whether you have a completed T1013 or not, please provide the taxpayer's information, so you can track your orders with NOACanada.
+= form_for @taxpayer, builder: Judge::FormBuilder do |f|  
+  .form-fields
+    %h2 New NOA Order
+    .order-form
+      .col-md-6.file-attach
+        %h3 Please Attach Your Complete and Signed T1013 Form
+        %br
+        = f.file_field :document, class: 'btn btn-primary btn-raised'
       .col-md-6
-        / = @order.first_name
-        = f.input :first_name, input_html: { class: 'form-control' }
-      .col-md-6
-        = f.input :last_name, input_html: { class: 'form-control' }
-    .row
-      .col-md-6
-        = f.input :phone_number, input_html: { class: 'form-control' }
-      .col-md-6
-        = f.input :email, input_html: { class: 'form-control' }
-    .row
-      .col-md-6
-        = f.input :sin, input_html: { class: 'form-control' }
-      .col-md-6
-        = f.input :dob, input_html: { class: 'form-control' }
-    
-      / .col-md-3
-      /   = f.input :hassignature
-      .text-center
-        .col-md-6.col-md-offset-6
-          = f.submit "Pay with Paypal", name: 'payment_method', value: 'Pay with Paypal',class: 'btn btn-default'
-        / .col-md-6  
-        /   = f.submit "Pay with Credit Card", name: 'payment_method', value: 'Pay with Credit Card', class: 'btn btn-default'
-      / .text-center
-      /   = f.submit "Process Order", class: "btn btn-default"
+        .row
+          .col-md-12 
+            If you do not have a signed T11013, you can download one here: 
+            %a{:href => 'http://www.cra-arc.gc.ca/E/pbg/tf/t1013/t1013-fill-14e.pdf', :target => 'blank'} Fillable T1013 Form
+            Whether you have a completed T1013 or not, please provide the taxpayer's information, so you can track your orders with NOACanada.
+          .form-area
+            .col-md-6
+              %label First Name
+              = f.text_field :first_name, class: 'form-control', :validate => true
+            .col-md-6
+              %label Last Name
+              = f.text_field :last_name, class: 'form-control', :validate => true
 
+            .col-md-6
+              %label Phone Number
+              = f.text_field :phone_number, class: 'form-control phone', :validate => true
+            .col-md-6
+              %label Email Address
+              = f.email_field :email, class: 'form-control', :validate => true
+
+            .col-md-6
+              %label SIN
+              = f.text_field :sin, class: 'form-control sinnum', label: 'SIN', :validate => true
+            .col-md-6
+              %label DOB (YYYY/MM/DD)
+              = f.text_field :dob, class: 'form-control datepicker', label: 'DOB (YYYY/MM/DD)', :validate => true
+          
+            .text-center
+              .col-md-6.col-md-offset-6
+                = f.submit "Pay with Paypal", name: 'payment_method', value: 'Pay with Paypal',class: 'btn btn-primary btn-raised submit-btn'
+              / .col-md-6  
+              /   = f.submit "Pay with Credit Card", name: 'payment_method', value: 'Pay with Credit Card', class: 'btn btn-default'

@@ -23,5 +23,6 @@
 //= require bootstrap-datetimepicker
 //= require jquery.screwdefaultbuttonsV2
 //= require jquery.mask.min
+//= require bootstrap-material-design
 //= require form_functions
 //= require_tree .

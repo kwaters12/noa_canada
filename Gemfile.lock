@@ -55,6 +55,8 @@ GEM
     bcrypt (3.1.10)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-material-design (0.2.2)
+      bootstrap-sass (~> 3.0)
     bootstrap-sass (3.3.5.1)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.3.0)
@@ -285,6 +287,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
+  bootstrap-material-design
   bootstrap-sass
   bootstrap3-datetimepicker-rails (~> 4.14.30)
   byebug
