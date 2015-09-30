@@ -41,42 +41,27 @@
             = radio_button :agent, :agent_type, 'Other', onclick: "render_partial('other');", id: 'other-radio'
       .col-md-6.partial-wrapper.form-group
         #partial-area
-          .partial-info{:data => {:link => 'taxpayer'}}
+          .partial-info{:data => {:link => 'taxpayer'}, :onclick => "render_partial('taxpayer');"}
             %i.fa.fa-angle-double-right
             I am not a tax agent
             %br
             %i.fa.fa-angle-double-right
-            I want to find a tax agent, or connect with my current tax agent
-          .partial-info{:data => {:link => 'mortgage'}}
+            I want to find a Tax Agent, or connect with my current Tax Agent
+          .partial-info{:data => {:link => 'mortgage'}, :onclick => "render_partial('mortgage broker');"}
             %i.fa.fa-angle-double-right
-            I am a mortgage broker
-            %br
+            I am a Mortgage Broker
+          .partial-info{:data => {:link => 'mutual'}, :onclick => "render_partial('mutual fund licensee');"}
             %i.fa.fa-angle-double-right
-            I have my license number
-          .partial-info{:data => {:link => 'mutual'}}
+            I am a Mutual Fund Licensee
+          .partial-info{:data => {:link => 'insurance'}, :onclick => "render_partial('life insurance licensee');"}
             %i.fa.fa-angle-double-right
-            I am a mutual fund licensee
-            %br
-            %i.fa.fa-angle-double-right
-            I have my license number
-          .partial-info{:data => {:link => 'insurance'}}
-            %i.fa.fa-angle-double-right
-            I am a life insurance licensee
-            %br
-            %i.fa.fa-angle-double-right
-            I have my  license number
-          .partial-info{:data => {:link => 'cpa'}}
+            I am a Life Insurance Licensee
+          .partial-info{:data => {:link => 'cpa'}, :onclick => "render_partial('cpa');"}
             %i.fa.fa-angle-double-right
             I am a Certified Professional Accountant
-            %br
+          .partial-info{:data => {:link => 'other'}, :onclick => "render_partial('other');"}
             %i.fa.fa-angle-double-right
-            I have my business license number
-          .partial-info{:data => {:link => 'other'}}
-            %i.fa.fa-angle-double-right
-            I am an alternate representative
-            %br
-            %i.fa.fa-angle-double-right
-            I have information about my business
+            I am an Alternate Representative
         .col-md-3.col-md-offset-8
           = f.submit "Continue", class: "btn btn-default", id: "submit-button"
   .progressbar{"data-perc" => "75"}

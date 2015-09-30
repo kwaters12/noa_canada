@@ -20,14 +20,23 @@
         / %h2 Welcome to NOA Canada
         .cta-heading
           .container
-            %h3 Getting your last three years' Notices of Assessments couldn't be easier. <br>
+            .row
+              .landing-headline
+                .col-md-4
+                  %hr
+                .col-md-4
+                  Welcome to
+                .col-md-4
+                  %hr
+            %h3 Our Online Service for Ordering and Organizing Notice of Assessment documents
+            / %h3 Getting your last three years' Notices of Assessments couldn't be easier. <br>
             / .cta-title
             /   Simply follow these steps:
-            .col-md-6
+            .homepage-buttons              
               .homepage-button
-                = link_to "ORDER NOW - New User", new_agent_registration_path, class: 'btn btn-primary btn-raised'
-            .col-md-6
+                = link_to "<h4>ORDER NOW!</h4> <br> New User".html_safe, new_agent_registration_path, class: 'btn btn-primary btn-raised'
+
               .homepage-button
-                = link_to "ORDER NOW - Returning NOA Agent", new_agent_session_path, class: 'btn btn-primary btn-raised' 
-           
+                = link_to "<h4>ORDER NOW!</h4> <br> Returning NOA Agent".html_safe, new_agent_session_path, class: 'btn btn-primary btn-raised' 
+         
 

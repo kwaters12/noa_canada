@@ -173,6 +173,11 @@ label {
     }
   }
 }
+.payment-form {
+  .btn {
+    top: -7px;
+  }
+}
 .form-radios {
   text-align: left;
   font-size: 2em;
@@ -241,6 +246,7 @@ label {
   cursor: pointer;
   font-size: 1.1em;
   padding: 13px;
+  height: 70px;
   border-bottom: 1px dotted $dark_grey;
   transition: 0.2s;
   &:hover {
@@ -868,6 +874,33 @@ ul.ui-autocomplete {
   }
   
 }
+.homepage-buttons {
+  width: 450px;
+  margin: 0 auto;
+  .homepage-button {
+    width: 50%;
+    padding: 20px 30px;
+    float: left;
+    .btn {
+      width: 200px;
+    }
+    h4 {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-bottom: 0;
+      color: white;
+    }
+  }
+}
+.landing-headline {
+  width: 700px;
+  margin: 0 auto;
+  color: white;
+  font-size: 2.2em;
+  hr {
+    border: 1px solid white;
+  }
+}
 .orders {
   --webkit-box-shadow: -2px 2px 0px 0px rgba(194,194,194,1);
   -moz-box-shadow: -2px 2px 0px 0px rgba(194,194,194,1);
@@ -931,4 +964,11 @@ ul.ui-autocomplete {
   left:0;
   text-align: center; 
   color: white;
+  font-size: 0.9em;
+  a {
+    color: white;
+  }
+}
+.ui-helper-hidden-accessible {
+  display: none;
 }

@@ -43,13 +43,16 @@ class OrdersController < ApplicationController
 
   def show 
     @order = Order.find(params[:id])
-    if @order.document.exists? && params[:payment_status] == "Completed"
-      redirect_to root_url, notice: "Your order has been received. You can view the details below."
-    elsif  @order.docusign_url.nil? && @order.document.nil?
-      attach_docusign_signature(@order)
-    else !@order.docusign_url.nil?
-      @url = @order.docusign_url
+    if @order.status != 'Completed'
+      handle_stripe_payment(@order)
     end
+    # if @order.document.exists? && params[:payment_status] == "Completed"
+    #   redirect_to root_url, notice: "Your order has been received. You can view the details below."
+    # elsif  @order.docusign_url.nil? && @order.document.nil?
+    #   attach_docusign_signature(@order)
+    # else !@order.docusign_url.nil?
+    #   @url = @order.docusign_url
+    # end
   end
 
   
@@ -68,14 +71,20 @@ class OrdersController < ApplicationController
     end
   end
 
+  def paypal
+    order = Order.find(params[:format])
+    redirect_to order.paypal_url(order_url(order))
+  end
+
   private
+
+  def handle_stripe_payment(order)
+
+  end
 
   def generate_order(client, order)
     order.pdf_path = client.pdf_path = pdf_path = NoaApplicationPDFForm.new(order).export
 
-    Rails.logger.info("#*******************")
-    Rails.logger.info(order.pdf_path)
-    Rails.logger.info("#*******************")
     @dropbox_client = DropboxClient.new('fOObVAMBomkAAAAAAAAAWHCIPbIWTv7bwD3nHivV2EXLwV0WgKCJRYK9ykrWo8Ru')
 
     folder = @dropbox_client.search('/', folder_name)

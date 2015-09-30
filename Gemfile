@@ -30,6 +30,7 @@ gem "font-awesome-rails"
 gem 'judge-simple_form'
 gem 'figaro'
 gem 'bootstrap-material-design'
+gem 'stripe'
 
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'

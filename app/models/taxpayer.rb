@@ -17,7 +17,7 @@ class Taxpayer < ActiveRecord::Base
   validates :phone_number, presence: true
   validates :phone_number, length: { is: 14 } 
   validates :sin, presence: true
-  validates :sin, length: { is: 9 }
+  validates :sin, length: { is: 11 }
   validates :dob, presence: true
   validates :dob, length: { is: 10 }
   validates :email, presence: true

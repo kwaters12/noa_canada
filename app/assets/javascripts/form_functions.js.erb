@@ -2,11 +2,11 @@ $(document).ready(function() {
 
   $('.phone').mask('(000) 000-0000');
   $('.sinnum').mask('000 000 000');
-  
+  $('.datepicker').mask('AAAA/AA/AA');
 
-  $('.datepicker').datepicker({
-    format: 'YYYY/MM/DD'
-  });
+  // $('.datepicker').datepicker({
+  //   format: 'YYYY/MM/DD'
+  // });
 
     
 
@@ -121,7 +121,7 @@ $(document).ready(function() {
     console.log(valLen);
     console.log(valSuccess);
     if (valLen === valSuccess) {
-       $('#new_agent').submit();
+       $(this).closest('form').submit();
     }
     
   });

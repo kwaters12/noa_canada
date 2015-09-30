@@ -29,7 +29,7 @@ class TaxpayersController < ApplicationController
       generate_pdf(@taxpayer, @order)          
       respond_to do |format|
         format.html { 
-          # redirect_to root_url
+          redirect_to order_path(@order)
           # handle_payment(params[:payment_method], @order)
         }
         format.js
@@ -52,14 +52,6 @@ class TaxpayersController < ApplicationController
   end
 
   private
-
-  def handle_payment(payment_method, order)
-    if payment_method === 'Pay with Paypal'
-      redirect_to order.paypal_url(order_path(order))
-    else
-      redirect_to order_path(order)
-    end
-  end
 
   def find_agent
     @agent = current_agent
@@ -94,9 +86,7 @@ class TaxpayersController < ApplicationController
     end
 
     
-    order.save
-    handle_payment(params[:payment_method], order)  
-    
+    order.save    
   end
 
   def folder_name
@@ -115,6 +105,6 @@ class TaxpayersController < ApplicationController
     # shareable = @dropbox_client.shares(folder_name + '/' + file_name)
     shareable = @dropbox_client.shares(folder_name)
     order.dropbox_url = shareable['url']   
-    # ClientMailer.dropbox_link(@client, shareable['url']).deliver_now
+    ClientMailer.dropbox_link(@taxpayer, shareable['url']).deliver_now
   end
 end

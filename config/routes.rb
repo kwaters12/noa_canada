@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   resources :orders
   resources :brokerages
   resources :sub_brokerages
+  resources :charges
+  get '/paypal' => 'orders#paypal', as: 'paypal'
 
   resources :after_signup
 
