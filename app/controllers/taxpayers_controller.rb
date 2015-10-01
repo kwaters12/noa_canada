@@ -105,6 +105,6 @@ class TaxpayersController < ApplicationController
     # shareable = @dropbox_client.shares(folder_name + '/' + file_name)
     shareable = @dropbox_client.shares(folder_name)
     order.dropbox_url = shareable['url']   
-    ClientMailer.dropbox_link(@taxpayer, shareable['url']).deliver_now
+    # ClientMailer.dropbox_link(@taxpayer, shareable['url']).deliver_now
   end
 end
