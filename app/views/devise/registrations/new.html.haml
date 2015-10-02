@@ -11,26 +11,27 @@
           = form_for(resource, as: resource_name, url: registration_path(resource_name), builder: Judge::FormBuilder) do |f|
             / = f.error_notification 
             .row
-              .col-md-10.col-md-offset-1
+              .col-md-10.col-md-offset-1.col-sm-12
                 .form-inputs
-                  .col-md-3
-                    First Name
-                    = f.text_field :first_name, autofocus: true, class: 'form-control' , label: false, :validate => true
-                    .error-box.agent_first_name_errors
-                  .col-md-3
-                    Last Name
-                    = f.text_field :last_name, class: 'form-control' , label: false, :validate => true
-                    .error-box.agent_last_name_errors
-                  .col-md-3
-                    Email
-                    = f.text_field :email, class: 'form-control' , label: false, :validate => true
-                    .error-box.agent_email_errors
-                  /= f.text_field :email_confirmation, required: true
-                  .col-md-3
-                    Cell Phone Number
-                    = f.text_field :phone_number, class: 'form-control phone', label: false, :validate => true
-                    .error-box.agent_phone_number_errors
-                  .col-md-12.terms
+                  .row
+                    .col-md-3.col-sm-6
+                      First Name
+                      = f.text_field :first_name, autofocus: true, class: 'form-control' , label: false, :validate => true
+                      .error-box.agent_first_name_errors
+                    .col-md-3.col-sm-6
+                      Last Name
+                      = f.text_field :last_name, class: 'form-control' , label: false, :validate => true
+                      .error-box.agent_last_name_errors
+                    .col-md-3.col-sm-6
+                      Email
+                      = f.text_field :email, class: 'form-control' , label: false, :validate => true
+                      .error-box.agent_email_errors
+                    /= f.text_field :email_confirmation, required: true
+                    .col-md-3.col-sm-6
+                      Cell Phone Number
+                      = f.text_field :phone_number, class: 'form-control phone', label: false, :validate => true
+                      .error-box.agent_phone_number_errors
+                  .row.terms
                     .col-md-9
                       By submitting this information, I agree to NOA Canada's:
                       / Large modal
@@ -45,7 +46,7 @@
                         .modal-dialog.modal-lg
                           .modal-content
                             = render 'privacy_policy'
-                    .col-md-3
+                    .col-md-3.col-sm-3.col-sm-offset-9
                       = f.submit "Sign up", class: 'btn btn-primary btn-raised submit-btn'
             .form-actions
               

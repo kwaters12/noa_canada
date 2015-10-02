@@ -47,10 +47,10 @@ label {
 
 .header-logo {
   position: absolute;
-  top: 5px;
+  top: 90px;
   z-index: 1;
   img {
-    width: 275px;
+    width: 325px;
   }
 }
 
@@ -529,11 +529,11 @@ h1 {
 }
 .cta-heading {
   text-align: center;
-  margin-top: 100px;
+  margin-top: 170px;
   h3 {
-    color: white;
-    text-shadow: 1px 1px 2px rgba(90, 90, 90, 0.81);
-    margin-bottom: 50px;
+    color: #5485A7;
+    margin: 50px 0;
+    font-size: 1.8em;
   }
 }
 .cta-list {
@@ -628,7 +628,14 @@ h1 {
 // .btn-default:active:hover, .btn-default:active:focus {
 //   color: white;
 // }
-.submit-btn { width: 90%; margin: 0 auto;}
+.submit-btn { 
+  width: 90%; 
+  margin: 0 auto;
+  @media screen and (max-width: 992px) {
+    margin-top: 20px;
+  }
+
+}
 ul.ui-autocomplete {
   position: absolute;
   list-style: none;
@@ -897,8 +904,11 @@ ul.ui-autocomplete {
   margin: 0 auto;
   color: white;
   font-size: 2.2em;
+  font-weight: 500;
   hr {
     border: 1px solid white;
+    position: relative;
+    top: 3px;
   }
 }
 .orders {

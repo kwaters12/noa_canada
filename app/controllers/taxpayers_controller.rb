@@ -26,7 +26,7 @@ class TaxpayersController < ApplicationController
       @order.agent_id = current_agent.id
       @order.taxpayer_id = @taxpayer.id
       @order.save         
-      generate_pdf(@taxpayer, @order)          
+      generate_pdf(@agent, @taxpayer, @order)          
       respond_to do |format|
         format.html { 
           redirect_to order_path(@order)
@@ -65,7 +65,7 @@ class TaxpayersController < ApplicationController
     params.require(:taxpayer).permit([:document, :order_number])
   end
 
-  def generate_pdf(taxpayer, order)
+  def generate_pdf(agent, taxpayer, order)
     if !params[:taxpayer][:document]
       order.pdf_path = pdf_path = OrderPDFForm.new(taxpayer).export
     else    
@@ -90,7 +90,7 @@ class TaxpayersController < ApplicationController
   end
 
   def folder_name
-    @taxpayer.sin + ' ' + @taxpayer.last_name + ', ' + @taxpayer.first_name
+    @agent.name_display + ' - ' + @agent.sub_brokerage.name + '/' + @taxpayer.sin + ' ' + @taxpayer.last_name + ', ' + @taxpayer.first_name
   end
 
   def file_name

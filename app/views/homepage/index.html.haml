@@ -28,7 +28,7 @@
                   Welcome to
                 .col-md-4
                   %hr
-            %h3 Our Online Service for Ordering and Organizing Notice of Assessment documents
+            %h3 The Online Resource for Ordering Notice of Assessment Documents
             / %h3 Getting your last three years' Notices of Assessments couldn't be easier. <br>
             / .cta-title
             /   Simply follow these steps:
@@ -38,5 +38,8 @@
 
               .homepage-button
                 = link_to "<h4>ORDER NOW!</h4> <br> Returning NOA Agent".html_safe, new_agent_session_path, class: 'btn btn-primary btn-raised' 
-         
+              .row
+                .homepage-faqs
+                  = link_to 'Frequently Asked Questions', faqs_path
+             
 

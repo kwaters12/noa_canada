@@ -72,14 +72,17 @@ ActiveRecord::Schema.define(version: 20150922053820) do
     t.string   "purchased_at"
     t.string   "transaction_id"
     t.text     "notification_params"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.string   "document_file_name"
     t.string   "document_content_type"
     t.integer  "document_file_size"
     t.datetime "document_updated_at"
     t.string   "order_number"
     t.string   "dropbox_url"
+    t.string   "order_type"
+    t.string   "payment_method"
+    t.string   "payment_confirmation_number"
   end
 
   add_index "orders", ["agent_id"], name: "index_orders_on_agent_id", using: :btree
