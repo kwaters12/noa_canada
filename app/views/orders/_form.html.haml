@@ -9,8 +9,8 @@
       .col-md-6.file-attach
         %h3 Please Attach Your Complete and Signed T1013 Form
         %br
-        - f.fields_for(@order, :html => { :multipart => true }) do |field|
-          = field.file_field :document, class: 'btn btn-primary btn-raised'
+        / - f.fields_for(@order, :html => { :multipart => true }) do |field|
+        = f.file_field :document, class: 'btn btn-primary btn-raised'
       .col-md-6
         .row
           .col-md-12 

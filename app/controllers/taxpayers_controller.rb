@@ -19,7 +19,7 @@ class TaxpayersController < ApplicationController
   end
 
   def create  
-    @taxpayer = @agent.taxpayers.new(taxpayer_params)
+    @taxpayer = @agent.taxpayers.find_or_create_by(email: taxpayer_params[:email])
     if @taxpayer.save
       @order = @agent.orders.new(order_params)
       @order.status = "Started"
