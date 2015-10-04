@@ -24,6 +24,13 @@ class AfterSignupController < ApplicationController
 
   end
 
+  def choose_type
+    @agent = current_agent
+    if !agent 
+      redirect_to root_url
+    end
+  end
+
   private
 
   def agent_params
