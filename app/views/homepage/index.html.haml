@@ -20,24 +20,27 @@
         / %h2 Welcome to NOA Canada
         .cta-heading
           .container
-            .row
-              .landing-headline
-                .col-md-4
-                  %hr
-                .col-md-4
-                  Welcome to
-                .col-md-4
-                  %hr
-            %h3 The Online Resource for Ordering Notice of Assessment Documents
-            / %h3 Getting your last three years' Notices of Assessments couldn't be easier. <br>
-            / .cta-title
-            /   Simply follow these steps:
-            .homepage-buttons              
-              .homepage-button
-                = link_to "<h4>ORDER NOW!</h4> <br> New User".html_safe, new_agent_registration_path, class: 'btn btn-primary btn-raised'
+            .col-md-5
+              .header-logo
+                = link_to image_tag('logo.png'), root_url
+            .col-md-7
+              .row.text-right
+                .landing-headline
+                  %h4.white THE ONLINE RESOURCE
+                  %h4 for Ordering
+                  %h4 Notice of Assessment 
+                  %h4 Documents
+              
+              / %h3 Getting your last three years' Notices of Assessments couldn't be easier. <br>
+              / .cta-title
+              /   Simply follow these steps:
+              .row
+                .homepage-buttons              
+                  .homepage-button
+                    = link_to "New User<br><h4>ORDER NOW!</h4>".html_safe, new_agent_registration_path, class: 'btn btn-primary btn-raised'
 
-              .homepage-button
-                = link_to "<h4>ORDER NOW!</h4> <br> Returning NOA Agent".html_safe, new_agent_session_path, class: 'btn btn-primary btn-raised' 
+                  .homepage-button
+                    = link_to "Returning NOA Agent<br><h4>ORDER NOW!</h4>".html_safe, new_agent_session_path, class: 'btn btn-primary btn-raised' 
               .row
                 .homepage-faqs
                   = link_to 'Frequently Asked Questions', faqs_path

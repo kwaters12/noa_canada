@@ -11,6 +11,5 @@ class CreateSubBrokerages < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :sub_brokerages, :brokerages
   end
 end

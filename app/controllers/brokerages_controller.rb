@@ -17,7 +17,7 @@ class BrokeragesController < ApplicationController
   private
 
   def brokerage_params
-    params.require(:brokerage).require([:name, :address, :city, :postal_code, :province, :phone_number])
+    params.require(:brokerage).permit([:name, :address, :city, :postal_code, :province, :phone_number])
   end
 
 end

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   resources :brokerages
   resources :sub_brokerages
   resources :charges
+  resources :messages
   get '/paypal' => 'orders#paypal', as: 'paypal'
 
   resources :after_signup
@@ -26,6 +27,8 @@ Rails.application.routes.draw do
   get :agent_connect, to: "agents#connect"
   get :agent_lookup, to: "agents#lookup"
   get '/faqs' => 'static_pages#faqs', as: 'faqs'
+  get '/contact' => 'static_pages#contact', as: 'contact'
+  get '/contact_agent' => 'static_pages#contact_agent', as: 'contact-agent'
 
   devise_scope :agent do
     put "/confirm" => "confirmations#confirm"

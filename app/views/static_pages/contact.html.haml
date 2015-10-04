@@ -1,0 +1,37 @@
+= form_for @message, builder: Judge::FormBuilder do |f|  
+  - if @message.errors.full_messages.any?
+    - @message.errors.full_messages.each do |error_message|
+      = error_message if @message.errors.full_messages.first == error_message
+      %br/
+  .form-fields.cta-heading
+    .container
+      .row
+        .col-md-5
+          .header-logo
+            = link_to image_tag('logo.png'), root_url
+        .col-md-7
+          %h2.text-center Contact Us
+      .order-form
+        .col-md-6.col-md-offset-3
+          .row
+            .form-area
+              .col-md-6
+                %label First Name
+                = f.text_field :first_name, class: 'form-control', :validate => true
+              .col-md-6
+                %label Last Name
+                = f.text_field :last_name, class: 'form-control', :validate => true
+
+              .col-md-6
+                %label Phone Number
+                = f.text_field :phone_number, class: 'form-control phone', :validate => true
+              .col-md-6
+                %label Email Address
+                = f.email_field :email, class: 'form-control', :validate => true
+              .col-md-12
+                %label Message
+                = f.text_area :message, class: 'form-control', :validate => true
+                
+              .text-right
+                .col-md-12
+                  = f.submit "Contact Us",class: 'btn btn-primary btn-raised submit-btn'

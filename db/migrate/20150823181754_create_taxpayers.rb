@@ -12,6 +12,5 @@ class CreateTaxpayers < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :taxpayers, :agents
   end
 end

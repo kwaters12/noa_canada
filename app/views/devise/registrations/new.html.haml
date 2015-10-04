@@ -5,9 +5,18 @@
       
       .form-fields
         / %h2 Personal Information
-        .personal-form
-          .cta-heading
-            %h3 Please provide some basic information so we can get your account creation started.
+        .cta-heading.personal-form
+          .container
+            .col-md-5
+              .header-logo
+                = link_to image_tag('logo.png'), root_url
+            .col-md-7
+              .row.text-right
+                .landing-headline
+                  %h4.white Fill in the Form to Create Your Account
+                  / %h4 for Ordering
+                  / %h4 Notice of Assessment 
+                  / %h4 Documents
           = form_for(resource, as: resource_name, url: registration_path(resource_name), builder: Judge::FormBuilder) do |f|
             / = f.error_notification 
             .row
@@ -15,20 +24,20 @@
                 .form-inputs
                   .row
                     .col-md-3.col-sm-6
-                      First Name
+                      %label First Name
                       = f.text_field :first_name, autofocus: true, class: 'form-control' , label: false, :validate => true
                       .error-box.agent_first_name_errors
                     .col-md-3.col-sm-6
-                      Last Name
+                      %label Last Name
                       = f.text_field :last_name, class: 'form-control' , label: false, :validate => true
                       .error-box.agent_last_name_errors
                     .col-md-3.col-sm-6
-                      Email
+                      %label Email
                       = f.text_field :email, class: 'form-control' , label: false, :validate => true
                       .error-box.agent_email_errors
                     /= f.text_field :email_confirmation, required: true
                     .col-md-3.col-sm-6
-                      Cell Phone Number
+                      %label Cell Phone Number
                       = f.text_field :phone_number, class: 'form-control phone', label: false, :validate => true
                       .error-box.agent_phone_number_errors
                   .row.terms
@@ -46,8 +55,8 @@
                         .modal-dialog.modal-lg
                           .modal-content
                             = render 'privacy_policy'
-                    .col-md-3.col-sm-3.col-sm-offset-9
-                      = f.submit "Sign up", class: 'btn btn-primary btn-raised submit-btn'
+                    .col-md-3.col-sm-3
+                      = f.submit "Create Account", class: 'btn btn-primary btn-raised submit-btn'
             .form-actions
               
               .progressbar{"data-perc" => "50"}

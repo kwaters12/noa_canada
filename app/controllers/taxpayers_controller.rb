@@ -18,8 +18,8 @@ class TaxpayersController < ApplicationController
     @taxpayer = Taxpayer.new
   end
 
-  def create   
-    @taxpayer = @agent.taxpayers.new(taxpayer_params)   
+  def create  
+    @taxpayer = @agent.taxpayers.new(taxpayer_params)
     if @taxpayer.save
       @order = @agent.orders.new(order_params)
       @order.status = "Started"
@@ -36,9 +36,8 @@ class TaxpayersController < ApplicationController
         format.json  { render json: @taxpayer.to_json(include: @order) }
       end            
     else
-      flash.now[:error] = "Sorry, your application was not saved"
-      redirect_to new_order_path
-    end 
+      redirect_to new_order_path, notice: "Sorry, your application was not saved"
+    end   
   end
 
   def hook
@@ -58,7 +57,7 @@ class TaxpayersController < ApplicationController
   end
 
   def taxpayer_params
-    params.require(:taxpayer).permit([:first_name, :last_name, :sin, :dob, :email, :phone_number, :agent_id])  
+    params.require(:taxpayer).permit([:first_name, :last_name, :sin, :dob, :email, :phone_number, :agent_id])
   end
 
   def order_params
@@ -105,6 +104,5 @@ class TaxpayersController < ApplicationController
     # shareable = @dropbox_client.shares(folder_name + '/' + file_name)
     shareable = @dropbox_client.shares(folder_name)
     order.dropbox_url = shareable['url']   
-    # ClientMailer.dropbox_link(@taxpayer, shareable['url']).deliver_now
   end
 end

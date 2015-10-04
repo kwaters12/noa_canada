@@ -10,11 +10,11 @@
     /   .error-box.agent_license_number_errors
     .col-md-6
       %strong Brokerage
-      = f.text_field :brokerage_name, value: '', class: 'brokerages_with_autocomplete form-control', data: { autocompleteUrl:  brokerages_path }, required: true
+      = f.text_field :brokerage_name, value: '', class: 'brokerages_with_autocomplete form-control', required: true
       .error-box.agent_brokerage_name_errors
     .col-md-6
       %strong Sub-Brokerage
-      = f.text_field :sub_brokerage_name, class: 'form-control', value: '', class: 'sub_brokerages_with_autocomplete form-control', 'data-autocompleteUrl' => sub_brokerages_path, required: true
+      = f.text_field :sub_brokerage_name, class: 'form-control', value: '', class: 'sub_brokerages_with_autocomplete form-control', required: true
       .error-box.agent_sub_brokerage_name_errors
     .col-md-8
       Are you the designated individual at your sub-brokerage?

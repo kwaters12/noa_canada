@@ -1,8 +1,4 @@
-/ = fields_for agent do |f|
 .taxpayer-form
-  NOA Canada is a service for Mortgage Brokers and other Tax Agents, so if you are a taxpayer and you do not have a tax agent, click here:
-  .taxpayer-btn
-    = link_to "Find Me a Tax Agent", agents_path, class: 'btn btn-default', id: 'connect-button'
-  Or, if you have a tax agent, and would like to find them with our handy Agent Finder, click here:
-  .taxpayer-btn
-    = link_to "I have a Tax Agent", agents_path, class: 'btn btn-default', id: 'lookup-button'
+  = fields_for(agent, builder: Judge::FormBuilder) do |f|
+    To get your NOA:
+    .taxpayer-btn

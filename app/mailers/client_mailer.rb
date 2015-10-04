@@ -6,4 +6,10 @@ class ClientMailer < ApplicationMailer
     @link = link
     mail(to: @client.email, subject: 'Your NOA Shared Folder')
   end
+
+  def contact_form(taxpayer)
+    @taxpayer = taxpayer
+    mail(to: 'info@noacanada.ca', subject: 'Contact Form Submission')
+  end
+
 end

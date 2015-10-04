@@ -1,7 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
-    # include Wicked::Wizard
 
-    # steps :choose_type, :add_password
+    before_action :check_errors
 
   def show
     @agent = Agent.find(params[:agent_id])
@@ -20,6 +19,12 @@ class RegistrationsController < Devise::RegistrationsController
     render_wizard @agent
   end
 
+  def check_errors
+    if @agent
+      flash[:notice] = flash[:notice].to_a.concat @agent.errors.full_messages
+    end
+  end
+
   # def create 
   #   @agent = Agent.new agent_params
   #   # @taxpayer = Taxpayer.new taxpayer_params
@@ -36,7 +41,7 @@ class RegistrationsController < Devise::RegistrationsController
   private
 
   def agent_params
-    params.require(:agent).permit(:account_number, :agent_type, :designated_individual, :first_name, :is_admin, :last_name, :email, :license_number, :phone_number, :password, :password_confirmation)
+    params.require(:agent).permit(:account_number, :agent_type, :designated_individual, :first_name, :is_admin, :last_name, :email, :license_number, :phone_number, :password, :password_confirmation, :office_phone_number)
   end
 
   def after_sign_up_path_for(resource)

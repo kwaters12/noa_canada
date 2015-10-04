@@ -4,4 +4,10 @@
       %a.close{href: '#', data: {dismiss: 'alert'}} &times;
       Notice: 
       %div= msg
+- if resource.errors.any?
+  .col-md-10.col-md-offset-1
+    .alert.alert-danger
+      %a.close{href: '#', data: {dismiss: 'alert'}} &times;
+      Notice: 
+      = devise_error_messages!
 .clearfix

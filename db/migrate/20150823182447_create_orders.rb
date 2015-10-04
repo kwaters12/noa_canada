@@ -12,7 +12,6 @@ class CreateOrders < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :orders, :agents
-    add_foreign_key :orders, :taxpayers
+    
   end
 end

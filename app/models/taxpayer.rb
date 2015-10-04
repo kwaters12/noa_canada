@@ -23,11 +23,25 @@ class Taxpayer < ActiveRecord::Base
   validates :email, presence: true
   validates :email, length: { in: 5..30 }
 
+  accepts_nested_attributes_for :orders
+
   def name_display
     if first_name || last_name
       "#{first_name} #{last_name}".strip
     else
       email
     end
+  end
+
+  def username=(val)
+    write_attribute(:username, val.downcase)
+  end
+
+  def dob=(val)
+    write_attribute(:dob, val.gsub(/\/\//, ""))
+  end
+
+  def sin=(val)
+    write_attribute(:sin, val.gsub(/\s+/, ""))
   end
 end

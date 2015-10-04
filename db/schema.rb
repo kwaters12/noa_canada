@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150922053820) do
+ActiveRecord::Schema.define(version: 20151004044453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20150922053820) do
     t.datetime "updated_at",                             null: false
     t.integer  "sub_brokerage_id"
     t.integer  "brokerage_id"
+    t.string   "office_phone_number"
   end
 
   add_index "agents", ["brokerage_id"], name: "index_agents_on_brokerage_id", using: :btree
@@ -62,6 +63,19 @@ ActiveRecord::Schema.define(version: 20150922053820) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
+
+  create_table "messages", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "phone_number"
+    t.text     "message"
+    t.integer  "taxpayer_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "messages", ["taxpayer_id"], name: "index_messages_on_taxpayer_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
     t.integer  "agent_id"
@@ -117,4 +131,5 @@ ActiveRecord::Schema.define(version: 20150922053820) do
 
   add_index "taxpayers", ["agent_id"], name: "index_taxpayers_on_agent_id", using: :btree
 
+  add_foreign_key "messages", "taxpayers"
 end

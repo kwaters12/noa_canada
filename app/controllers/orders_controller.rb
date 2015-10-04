@@ -73,6 +73,8 @@ class OrdersController < ApplicationController
 
   def paypal
     order = Order.find(params[:format])
+    taxpayer = order.taxpayer
+    ClientMailer.dropbox_link(taxpayer, order.dropbox_url).deliver_now
     redirect_to order.paypal_url(order_url(order))
   end
 
