@@ -24,5 +24,6 @@
 //= require jquery.screwdefaultbuttonsV2
 //= require jquery.mask.min
 //= require bootstrap-material-design
+//= require dropzone
 //= require form_functions
 //= require_tree .

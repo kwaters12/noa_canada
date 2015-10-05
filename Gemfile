@@ -32,6 +32,7 @@ gem 'figaro'
 gem 'bootstrap-material-design'
 gem 'stripe'
 gem 'letter_opener'
+gem 'dropzonejs-rails'
 
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'

@@ -11,15 +11,16 @@ class MessagesController < ApplicationController
 
   def create 
     @message = Message.new message_params
-    @taxpayer = Taxpayer.find_or_create_by(email: params[:message][:email]) do |taxpayer|
-      taxpayer.first_name       = params[:message][:first_name]
-      taxpayer.last_name        = params[:message][:last_name]
-      taxpayer.email            = params[:message][:email]
-      taxpayer.phone_number     = params[:message][:phone_number]
-    end
-    @taxpayer.save
+    @message.agent = current_agent
+    # @taxpayer = Taxpayer.find_or_create_by(email: params[:message][:email]) do |taxpayer|
+    #   taxpayer.first_name       = params[:message][:first_name]
+    #   taxpayer.last_name        = params[:message][:last_name]
+    #   taxpayer.email            = params[:message][:email]
+    #   taxpayer.phone_number     = params[:message][:phone_number]
+    # end
+    # @taxpayer.save
     @message.save
-    ClientMailer.contact_form(@taxpayer).deliver_now
+    ClientMailer.contact_form(current_agent).deliver_now
     redirect_to root_url, notice: 'Thanks for Contacting Us!'
   end
 

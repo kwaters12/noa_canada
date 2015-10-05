@@ -6,10 +6,10 @@ class CreateMessages < ActiveRecord::Migration
       t.string :email
       t.string :phone_number
       t.text :message
-      t.references :taxpayer, index: true
+      t.references :agent, index: true
 
       t.timestamps null: false
     end
-    add_foreign_key :messages, :taxpayers
+    add_foreign_key :messages, :agents
   end
 end

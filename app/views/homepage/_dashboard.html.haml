@@ -1,19 +1,19 @@
 .home-dashboard
   .row
-    .col-md-9.col-sm-9
-      %h3 Order History
-    .col-md-3.col-sm-3
-      .btn.btn-primary
+    .col-md-5.col-sm-6.col-md-offset-7
+      %h2.order-title All Orders
+      .btn.btn-primary.btn-raised.btn-lg.text-right       
         = link_to "New NOA Order", new_order_path
-  .orders
-    .orders-tab.orders-all
-      = link_to "All Orders", '', onclick: "render_orders('all'); return false;", class: 'active'
-    .orders-tab.orders-complete
-      = link_to "Complete Orders", '', onclick: "render_orders('complete'); return false;"
-    .orders-tab.orders-incomplete
-      = link_to "Incomplete Orders", '', onclick: "render_orders('incomplete'); return false;"
-    #orders-area
-      = render 'all_orders'
+  .row
+    .orders
+      .orders-tab.orders-all
+        = link_to "All Orders", '', onclick: "render_orders('all'); return false;", class: 'active'
+      .orders-tab.orders-complete
+        = link_to "Complete Orders", '', onclick: "render_orders('complete'); return false;"
+      .orders-tab.orders-incomplete
+        = link_to "Incomplete Orders", '', onclick: "render_orders('incomplete'); return false;"
+      #orders-area
+        = render 'all_orders'
 
 :javascript
   function render_orders(element) {
@@ -22,17 +22,20 @@
         $('.orders-all').find('a').addClass('active');
         $('.orders-tab').not($('.orders-all')).find('a').removeClass('active');
         $('#orders-area').html("#{escape_javascript(render 'all_orders')}");
+        $('.order-title').text('All Orders');
         break;
       case 'complete':
         $('.orders-complete').find('a').addClass('active');
         $('.orders-tab').not($('.orders-complete ')).find('a').removeClass('active');
         $(this).addClass('active')
-        $('#orders-area').html("#{escape_javascript(render 'complete_orders', agent: @agent)}");         
+        $('#orders-area').html("#{escape_javascript(render 'complete_orders', agent: @agent)}");  
+        $('.order-title').text('Complete Orders');       
         break;
       case 'incomplete':
         $('.orders-incomplete').find('a').addClass('active');
         $('.orders-tab').not($('.orders-incomplete')).find('a').removeClass('active');
-        $('#orders-area').html("#{escape_javascript(render 'incomplete_orders', agent: @agent)}");         
+        $('#orders-area').html("#{escape_javascript(render 'incomplete_orders', agent: @agent)}");
+        $('.order-title').text('Incomplete Orders');         
         break;
       default:
         $('#orders-area').html("#{escape_javascript(render 'all_orders')}");

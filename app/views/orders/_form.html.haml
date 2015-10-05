@@ -1,4 +1,4 @@
-= form_for @taxpayer, builder: Judge::FormBuilder do |f|  
+= form_for @taxpayer, builder: Judge::FormBuilder, html: { multipart: true } do |f|  
   - if @taxpayer.errors.full_messages.any?
     - @taxpayer.errors.full_messages.each do |error_message|
       = error_message if @taxpayer.errors.full_messages.first == error_message
@@ -7,17 +7,15 @@
     %h2 New NOA Order
     .order-form
       .col-md-6.file-attach
-        %h3 Please Attach Your Complete and Signed T1013 Form
+        %h3 Please Attach Your Complete and Signed T1013 Form. We would prefer it in one document, but you may attach multiple documents if necessary.
         %br
-        / - f.fields_for(@order, :html => { :multipart => true }) do |field|
-        = f.file_field :document, class: 'btn btn-primary btn-raised'
+        / - f.fields_for :order do |order|
+        / - f.fields_for(@order.att, :html => { :multipart => true }) do |field|
+        = file_field_tag 'documents[]', multiple: true
       .col-md-6
         .row
-          .col-md-12 
-            If you do not have a signed T11013, you can download one here: 
-            %a{:href => 'http://www.cra-arc.gc.ca/E/pbg/tf/t1013/t1013-fill-14e.pdf', :target => 'blank'} Fillable T1013 Form
-            Whether you have a completed T1013 or not, please provide the taxpayer's information, so you can track your orders with NOACanada.
           .form-area
+            %h3 Taxpayer Information
             .col-md-6
               %label First Name
               = f.text_field :first_name, class: 'form-control', :validate => true
@@ -36,10 +34,18 @@
               %label SIN
               = f.text_field :sin, class: 'form-control sinnum', label: 'SIN', :validate => true
             .col-md-6
-              %label DOB (YYYY/MM/DD)
-              = f.text_field :dob, class: 'form-control datepicker', label: 'DOB (YYYY/MM/DD)', :validate => true
+              %label Date of Birth
+              = f.text_field :dob, class: 'form-control datepicker', placeholder: 'YYYY/MM/DD', :validate => true
           
             .text-right
               .col-md-12
-                = f.submit "Pay with Credit Card or Paypal", name: 'payment_method' ,class: 'btn btn-primary btn-raised submit-btn'
-        
+                = f.submit "Pay with Credit Card or Paypal", name: 'payment_method' ,class: 'btn btn-primary btn-raised submit-btn', id: 'submit-order'
+
+.file-warning
+  .file-warning-text
+    .row
+      = image_tag('noun_195206.png')
+    .row
+      Please attached a signed T1013. If you do not have a signed T11013, you can download one here: 
+      %br
+      %a{:href => '/forms/T1013-L2.pdf', :target => 'blank'} Fillable T1013 Form

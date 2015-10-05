@@ -7,8 +7,12 @@ $(document).ready(function() {
   // $('.datepicker').datepicker({
   //   format: 'YYYY/MM/DD'
   // });
+  
+  $("#submit-order").on('click', function(e) {
+    e.preventDefault();
+    console.log(typeof($('input[name="documents[]"]').val()));
 
-    
+  });    
 
   $('.partial-info').on('click', function() {
     var thisLink = $(this).data('link');
@@ -118,11 +122,23 @@ $(document).ready(function() {
 
     
     }
-    console.log(valLen);
-    console.log(valSuccess);
-    if (valLen === valSuccess) {
-       $(this).closest('form').submit();
+    if ($('input[name="documents[]"]').length) {
+      if ($('input[name="documents[]"]').val().length > 0) {
+        if (valLen === valSuccess) {
+          $(this).closest('form').submit();
+        }
+      } else {
+        $('.file-warning').show().on('click', function() {
+          $('.file-warning').hide();
+        });
+      }
     }
+    else {
+      if (valLen === valSuccess) {
+       $(this).closest('form').submit();
+      }
+    }
+  
     
   });
 

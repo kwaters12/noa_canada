@@ -20,6 +20,7 @@ class Agent < ActiveRecord::Base
   belongs_to :brokerage
   has_many :taxpayers
   has_many :orders
+  has_many :messages
 
   def send_on_create_confirmation_instructions
     

@@ -1,9 +1,9 @@
 class Order < ActiveRecord::Base
   belongs_to :agent
   belongs_to :taxpayer
+  has_many :assets
 
-  has_attached_file :document, default_url: "/images/:style/missing.png"
-  validates_attachment :document, :content_type => { :content_type => %w(application/pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document) }
+  accepts_nested_attributes_for :assets, :reject_if => :all_blank, :allow_destroy => true
 
   serialize :notification_params, Hash
 

@@ -22,22 +22,28 @@ class OrdersController < ApplicationController
       find_taxpayer
     end
     @order = @agent.orders.new(order_params)
-    @order.taxpayer = @taxpayer
+    @order.taxpayer = Taxpayer.find_or_create_by(params[:order][:email])
     @order.order_number = 100000 + "#{@order.id}".to_f
-    if @order.save
-      respond_to do |format|
-        format.html { redirect_to @order.paypal_url(order_path(@order, :format => 'pdf')) }
-        format.js
-        format.json  { render json: @taxpayer.to_json(include: @order) }   
-      end 
-      #redirect_to root_url, notice: "Thank You!"
+    respond_to do |format|
+      if @order.save
+          if params[:documents]
+            #===== The magic is here ;)
+            params[:documents].each { |document|
+              @order.assets.create(document: document)
+            }
+          end
+
+          format.html { redirect_to @order.paypal_url(order_path(@order, :format => 'pdf')) }
+          format.js
+          format.json  { render json: @taxpayer.to_json(include: @order) }   
+        #redirect_to root_url, notice: "Thank You!"
+        
+      else
+        flash.now[:error] = "Sorry, your application was not saved"
+        render :new
+      end
       
-    else
-      flash.now[:error] = "Sorry, your application was not saved"
-      render :new
-    end
-    
-    else
+     end
 
   end
 
@@ -72,10 +78,13 @@ class OrdersController < ApplicationController
   end
 
   def paypal
-    order = Order.find(params[:format])
-    taxpayer = order.taxpayer
-    ClientMailer.dropbox_link(taxpayer, order.dropbox_url).deliver_now
-    redirect_to order.paypal_url(order_url(order))
+    @order = Order.find(params[:format])
+    taxpayer = Taxpayer.find(@order.taxpayer_id)
+    # Rails.logger.info("^^^^^^^^^^^^^^^^")
+    # Rails.logger.info(order.inspect)
+    # Rails.logger.info("^^^^^^^^^^^^^^^^")
+    ClientMailer.dropbox_link(taxpayer, @order.dropbox_url).deliver_now
+    redirect_to @order.paypal_url(order_url(@order))
   end
 
   private

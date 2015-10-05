@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151004044453) do
+ActiveRecord::Schema.define(version: 20151004174605) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,19 @@ ActiveRecord::Schema.define(version: 20151004044453) do
   add_index "agents", ["reset_password_token"], name: "index_agents_on_reset_password_token", unique: true, using: :btree
   add_index "agents", ["sub_brokerage_id"], name: "index_agents_on_sub_brokerage_id", using: :btree
 
+  create_table "assets", force: :cascade do |t|
+    t.string   "document_file_name"
+    t.string   "document_content_type"
+    t.integer  "document_file_size"
+    t.datetime "document_updated_at"
+    t.integer  "order_id"
+    t.string   "pdf_path"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "assets", ["order_id"], name: "index_assets_on_order_id", using: :btree
+
   create_table "brokerages", force: :cascade do |t|
     t.string   "name"
     t.string   "postal_code"
@@ -70,12 +83,12 @@ ActiveRecord::Schema.define(version: 20151004044453) do
     t.string   "email"
     t.string   "phone_number"
     t.text     "message"
-    t.integer  "taxpayer_id"
+    t.integer  "agent_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
 
-  add_index "messages", ["taxpayer_id"], name: "index_messages_on_taxpayer_id", using: :btree
+  add_index "messages", ["agent_id"], name: "index_messages_on_agent_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
     t.integer  "agent_id"
@@ -88,10 +101,6 @@ ActiveRecord::Schema.define(version: 20151004044453) do
     t.text     "notification_params"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-    t.string   "document_file_name"
-    t.string   "document_content_type"
-    t.integer  "document_file_size"
-    t.datetime "document_updated_at"
     t.string   "order_number"
     t.string   "dropbox_url"
     t.string   "order_type"
@@ -131,5 +140,6 @@ ActiveRecord::Schema.define(version: 20151004044453) do
 
   add_index "taxpayers", ["agent_id"], name: "index_taxpayers_on_agent_id", using: :btree
 
-  add_foreign_key "messages", "taxpayers"
+  add_foreign_key "assets", "orders"
+  add_foreign_key "messages", "agents"
 end

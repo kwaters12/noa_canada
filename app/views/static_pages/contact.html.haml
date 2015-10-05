@@ -17,20 +17,20 @@
             .form-area
               .col-md-6
                 %label First Name
-                = f.text_field :first_name, class: 'form-control', :validate => true
+                = f.text_field :first_name, class: 'form-control', :validate => true, required: true
               .col-md-6
                 %label Last Name
-                = f.text_field :last_name, class: 'form-control', :validate => true
+                = f.text_field :last_name, class: 'form-control', :validate => true, required: true
 
               .col-md-6
                 %label Phone Number
-                = f.text_field :phone_number, class: 'form-control phone', :validate => true
+                = f.text_field :phone_number, class: 'form-control phone', :validate => true, required: true
               .col-md-6
                 %label Email Address
-                = f.email_field :email, class: 'form-control', :validate => true
+                = f.email_field :email, class: 'form-control', :validate => true, required: true
               .col-md-12
                 %label Message
-                = f.text_area :message, class: 'form-control', :validate => true
+                = f.text_area :message, class: 'form-control', :validate => true, required: true
                 
               .text-right
                 .col-md-12
