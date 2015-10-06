@@ -36,6 +36,9 @@ body {
 }
 
 body {
+  display: table; 
+  width: 100%; 
+  height: 100%;
   word-wrap: break-word; 
   font-family: 'Lato', sans-serif; 
   background: url(header-bg.jpg);
@@ -117,8 +120,9 @@ label {
 }
 .faqs {
   padding: 20px;
-  h3 {
-    text-align: center;
+  h4 {
+    margin-bottom: 70px;
+    padding-right: 30px;
   }
   .faq-item {
     margin: 10px;
@@ -229,6 +233,7 @@ label {
   .form-area {
     margin-top: 20px;
     display: inline-block;
+    width: 100%;
     .btn {
       margin-top: 30px;
       width: 100%
@@ -435,7 +440,8 @@ label {
  } 
 }
 .error-box {
-  // min-height: 70px;
+  color: $canada_red;
+  font-weight: bold;
 }
 .taxpayer-form {
   padding: 50px 30px;
@@ -1092,7 +1098,7 @@ ul.ui-autocomplete {
   background:black;
   width:100%;
   height:30px;
-  position:absolute;
+  position:fixed;
   bottom:0;
   left:0;
   text-align: center; 

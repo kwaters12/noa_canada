@@ -10,18 +10,12 @@ class Taxpayer < ActiveRecord::Base
   belongs_to :agent
   has_many :orders
 
-  validates :first_name, presence: true
-  validates :first_name, length: { in: 2..30 }
-  validates :last_name, presence: true
-  validates :last_name, length: { in: 2..30 }
-  validates :phone_number, presence: true
-  validates :phone_number, length: { is: 14 } 
-  validates :sin, presence: true
-  validates :sin, length: { is: 11 }
-  validates :dob, presence: true
-  validates :dob, length: { is: 10 }
-  validates :email, presence: true
-  validates :email, length: { in: 5..30 }
+  validates :first_name, length: { in: 1..30, message: 'Legal Name' }
+  validates :last_name, length: { in: 1..30, message: 'Surname' }
+  validates :phone_number, length: { is: 14, message: 'Area Code and Phone Number' }
+  validates :sin, length: { is: 11, message: '9-Digit SIN Number' }
+  validates :dob, length: { is: 10, message: 'YYYY/MM/DD' }
+  validates_format_of :email, :with => /\b[A-Z0-9._%a-z\-]+@(?:[A-Z0-9a-z\-]+\.)+[A-Za-z]{2,4}\z/, :message => "Must be a Valid Email"
 
   # accepts_nested_attributes_for :orders
 

@@ -16,26 +16,33 @@
         .row
           .form-area
             %h3 Taxpayer Information
-            .col-md-6
-              %label First Name
-              = f.text_field :first_name, class: 'form-control', :validate => true
-            .col-md-6
-              %label Last Name
-              = f.text_field :last_name, class: 'form-control', :validate => true
-
-            .col-md-6
-              %label Phone Number
-              = f.text_field :phone_number, class: 'form-control phone', :validate => true
-            .col-md-6
-              %label Email Address
-              = f.email_field :email, class: 'form-control', :validate => true
-
-            .col-md-6
-              %label SIN
-              = f.text_field :sin, class: 'form-control sinnum', label: 'SIN', :validate => true
-            .col-md-6
-              %label Date of Birth
-              = f.text_field :dob, class: 'form-control datepicker', placeholder: 'YYYY/MM/DD', :validate => true
+            .row
+              .col-md-6
+                %label First Name
+                = f.text_field :first_name, class: 'form-control', :validate => true
+                .error-box.taxpayer_first_name_errors
+              .col-md-6
+                %label Last Name
+                = f.text_field :last_name, class: 'form-control', :validate => true
+                .error-box.taxpayer_last_name_errors
+            .row
+              .col-md-6
+                %label Phone Number
+                = f.text_field :phone_number, class: 'form-control phone', :validate => true
+                .error-box.taxpayer_phone_number_errors
+              .col-md-6
+                %label Email Address
+                = f.email_field :email, class: 'form-control', :validate => true
+                .error-box.taxpayer_email_errors
+            .row
+              .col-md-6
+                %label SIN
+                = f.text_field :sin, class: 'form-control sinnum', label: 'SIN', :validate => true
+                .error-box.taxpayer_sin_errors
+              .col-md-6
+                %label Date of Birth
+                = f.text_field :dob, class: 'form-control datepicker', placeholder: 'YYYY/MM/DD', :validate => true
+                .error-box.taxpayer_dob_errors
           
             .text-right
               .col-md-12
