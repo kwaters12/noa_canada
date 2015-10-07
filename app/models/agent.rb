@@ -22,6 +22,8 @@ class Agent < ActiveRecord::Base
   has_many :orders
   has_many :messages
 
+  require 'securerandom'
+
   def send_on_create_confirmation_instructions
     
   end
@@ -33,6 +35,8 @@ class Agent < ActiveRecord::Base
       email
     end
   end
+
+
 
   def password_required?
     super if confirmed?

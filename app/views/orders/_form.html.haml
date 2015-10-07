@@ -8,9 +8,7 @@
     .order-form
       .col-md-6.file-attach
         %h3 Please Attach Your Complete and Signed T1013 Form. We would prefer it in one document, but you may attach multiple documents if necessary.
-        %br
-        / - f.fields_for :order do |order|
-        / - f.fields_for(@order.att, :html => { :multipart => true }) do |field|
+
         = file_field_tag 'documents[]', multiple: true
       .col-md-6
         .row
@@ -43,6 +41,8 @@
                 %label Date of Birth
                 = f.text_field :dob, class: 'form-control datepicker', placeholder: 'YYYY/MM/DD', :validate => true
                 .error-box.taxpayer_dob_errors
+            .row
+
           
             .text-right
               .col-md-12

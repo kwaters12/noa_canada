@@ -86,11 +86,14 @@ class TaxpayersController < ApplicationController
   def generate_pdf(agent, taxpayer, order)
     @dropbox_client = DropboxClient.new('fOObVAMBomkAAAAAAAAAWHCIPbIWTv7bwD3nHivV2EXLwV0WgKCJRYK9ykrWo8Ru')
 
-    folder = @dropbox_client.search('/', folder_name)
+    if @agent.dropbox_session.nil?
+      @dropbox_client.file_create_folder(agent_folder)
+      agent_dropbox = @dropbox_client.shares(agent_folder)
+      @agent.dropbox_session = agent_dropbox['url']
+      @agent.save
+    end
 
-    Rails.logger.info("*******************")
-    Rails.logger.info(folder.inspect)
-    Rails.logger.info("*******************")
+    folder = @dropbox_client.search('/', folder_name)
 
     if folder.nil?
       @dropbox_client.file_create_folder(folder_name)
@@ -113,8 +116,15 @@ class TaxpayersController < ApplicationController
     order.save    
   end
 
+  def agent_folder
+    if !@agent.license_number
+      @agent.license_number = SecureRandom.uuid
+    end
+    @agent.name_display + ' - ' + @agent.license_number + '/' + @agent.name_display + ' - ' + @agent.sub_brokerage.name
+  end
+
   def folder_name
-    @agent.name_display + ' - ' + @agent.sub_brokerage.name + '/' + @taxpayer.sin + ' ' + @taxpayer.last_name + ', ' + @taxpayer.first_name
+    agent_folder + '/' + @taxpayer.sin + ' ' + @taxpayer.last_name + ', ' + @taxpayer.first_name
   end
 
   def file_name
