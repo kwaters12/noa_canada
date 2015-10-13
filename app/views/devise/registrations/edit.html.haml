@@ -20,9 +20,10 @@
               / Currently waiting confirmation for: #{resource.unconfirmed_email}
             .col-md-3
               %h4 Change Password
+              = f.input :current_password, hint: "we need your current password to confirm your changes", required: true, input_html: { class: 'form-control' }, label: 'Current Password'
               = f.input :password, autocomplete: "off", label: 'New Password', input_html: { class: 'form-control' }
               = f.input :password_confirmation, required: false, input_html: { class: 'form-control' }, label: 'Password Confirmation'
-              = f.input :current_password, hint: "we need your current password to confirm your changes", required: true, input_html: { class: 'form-control' }, label: 'Current Password'
+              
               .form-actions
             .col-md-3
               = f.button :submit, "Update Account", class: 'btn btn-primary btn-raised'
