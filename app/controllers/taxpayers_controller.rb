@@ -37,8 +37,8 @@ class TaxpayersController < ApplicationController
         generate_pdf(@agent, @taxpayer, @order)          
         
         format.html { 
-          redirect_to order_path(@order)
-          # handle_payment(params[:payment_method], @order)
+          # redirect_to order_path(@order)
+          redirect_to @order.paypal_url(order_path(@order))
         }
         format.js
         format.json  { render json: @taxpayer.to_json(include: @order) }

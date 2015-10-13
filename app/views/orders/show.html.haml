@@ -6,11 +6,12 @@
 /       = @order.taxpayer.first_name
 /       - if params[:order]        
 /         %iframe{ src: @order.docusign_url, class: 'document_iframe' }
-.container.text-center
-  .cta-selection.payment-form
-    = form_tag charges_path do
-      Amount: $50
-      %script.stripe-button{"data-amount" => "5250", "data-description" => "Standard NOA Package", "data-key" => Rails.configuration.stripe[:publishable_key], "data-locale" => "auto", :src => "https://checkout.stripe.com/checkout.js"}
-      = link_to "Pay with Paypal", paypal_path(@order), class: 'btn btn-primary btn-raised'
+/ .container.text-center
+/   .cta-selection.payment-form
+/     = form_tag charges_path do
+/       Amount: $50
+/       %script.stripe-button{"data-amount" => "5250", "data-description" => "Standard NOA Package", "data-key" => Rails.configuration.stripe[:publishable_key], "data-locale" => "auto", :src => "https://checkout.stripe.com/checkout.js"}
+/       = link_to "Pay with Paypal", paypal_path(@order), class: 'btn btn-primary btn-raised'
 
-
+= @order.status
+= @order.notification_params

@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
-  before_action :find_agent, :find_sub_brokerage
+  before_action :find_agent, :find_sub_brokerage, except: [:hook]
   skip_before_filter :verify_authenticity_token, only: [:show]
-  protect_from_forgery except: :show 
+  protect_from_forgery except: [:show, :hook] 
 
   def index
     @orders = Order.all
@@ -33,7 +33,7 @@ class OrdersController < ApplicationController
             }
           end
 
-          format.html { redirect_to @order.paypal_url(order_path(@order, :format => 'pdf')) }
+          format.html { redirect_to @order.paypal_url(order_path(@order)) }
           format.js
           format.json  { render json: @taxpayer.to_json(include: @order) }   
         #redirect_to root_url, notice: "Thank You!"
@@ -49,9 +49,9 @@ class OrdersController < ApplicationController
 
   def show 
     @order = Order.find(params[:id])
-    if @order.status != 'Completed'
-      handle_stripe_payment(@order)
-    end
+    # if @order.status != 'Completed'
+    #   handle_stripe_payment(@order)
+    # end
     # if @order.document.exists? && params[:payment_status] == "Completed"
     #   redirect_to root_url, notice: "Your order has been received. You can view the details below."
     # elsif  @order.docusign_url.nil? && @order.document.nil?
@@ -84,7 +84,19 @@ class OrdersController < ApplicationController
     # Rails.logger.info(order.inspect)
     # Rails.logger.info("^^^^^^^^^^^^^^^^")
     ClientMailer.dropbox_link(taxpayer, @order.dropbox_url).deliver_now
-    redirect_to @order.paypal_url(order_url(@order))
+    redirect_to @order.paypal_url(@order)
+  end
+
+  def hook
+    params.permit!
+    status = params[:payment_status]
+    Rails.logger.info("%%%%%%%%%%%%%%%%")
+    Rails.logger.info(params)
+    Rails.logger.info("%%%%%%%%%%%%%%%%")
+    if status == "Completed"
+      @order = Order.find params[:invoice]
+      @order.update_attributes notification_params: params, status: status, transaction_id: params[:txn_id], purchased_at: Time.now
+    end
   end
 
   private

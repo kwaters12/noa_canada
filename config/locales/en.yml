@@ -31,11 +31,11 @@ en:
         agent:
           attributes:
             first_name:
-              blank: "is required"
+              blank: "Given name"
             last_name:
-              blank: "is required"
+              blank: "Family name"
             email:
-              blank: "is required"
+              invalid: "Must be valid email"
             phone_number:
-              blank: "is required"
-              wrong_length: "area code + phone number"
+              blank: "Is required"
+              wrong_length: "Area Code + Phone Number"

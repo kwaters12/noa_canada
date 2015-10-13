@@ -51,9 +51,6 @@
                 .partial-info{:data => {:link => 'taxpayer'}, :onclick => "render_partial('taxpayer');"}
                   %i.fa.fa-angle-double-right
                   I am not a tax agent
-                  %br
-                  %i.fa.fa-angle-double-right
-                  I want to find a Tax Agent, or connect with my current Tax Agent
                 .partial-info{:data => {:link => 'mortgage'}, :onclick => "render_partial('mortgage broker');"}
                   %i.fa.fa-angle-double-right
                   I am a Mortgage Broker
@@ -69,9 +66,8 @@
                 .partial-info{:data => {:link => 'other'}, :onclick => "render_partial('other');"}
                   %i.fa.fa-angle-double-right
                   I am an Alternate Representative
-              .row
-                .col-md-4.col-md-offset-1
-                  = f.submit "Continue", class: "btn btn-default", id: "submit-button"
+              .col-md-4.col-md-offset-1
+                = f.submit "Continue", class: "btn btn-default", id: "submit-button"
       - else 
         :javascript
           window.location.href="/"
@@ -92,11 +88,13 @@
       $('#type').val('taxpayer');
       $('#edit_agent_3').submit();
     });
+
+    $('')
   });
   function render_partial(element) {
     switch(element) {
       case 'taxpayer':
-        $('#submit-button').show().prop('value', 'Contact an Agent').attr('data-type', 'taxpayer');
+        $('#submit-button').show().prop('value', 'To Get Your NOA, Contact an Agent').attr('data-type', 'taxpayer')
         $('#partial-area').hide().html("#{escape_javascript(render 'taxpayer_form', agent: @agent)}").fadeIn();
         break;
       case 'mortgage broker':

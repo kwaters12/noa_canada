@@ -7,8 +7,8 @@ class HomepageController < ApplicationController
     end
     @sub_brokerage = @agent.sub_brokerage if @agent && @agent.sub_brokerage
     @orders = @agent.orders.all if @agent
-    @complete_orders = Order.where(status: "Complete")
+    @complete_orders = @agent.orders.where(status: "Completed")
 
-    @incomplete_orders = Order.where(status: "Started")
+    @incomplete_orders = @agent.orders.where(status: "Started")
   end
 end

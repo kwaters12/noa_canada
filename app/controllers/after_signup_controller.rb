@@ -15,7 +15,7 @@ class AfterSignupController < ApplicationController
       @taxpayer = Taxpayer.new(first_name: @agent.first_name, last_name: @agent.last_name, email: @agent.email, phone_number: @agent.phone_number)
       @taxpayer.save      
       @agent.destroy     
-      redirect_to root_url, notice: "Thanks for your interest in NOA Canada"
+      redirect_to root_url, notice: "An NOACanada.ca representative will be in contact shortly."
     else 
       @agent.update_attributes(agent_params)
       sign_in(@agent, bypass: true) # needed for devise
