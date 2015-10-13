@@ -36,6 +36,7 @@ gem 'dropzonejs-rails'
 gem 'unicorn'
 gem 'rack-timeout'
 gem 'delayed_job_active_record'
+gem 'newrelic_rpm'
 
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
