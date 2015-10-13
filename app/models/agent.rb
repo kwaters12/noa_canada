@@ -26,6 +26,10 @@ class Agent < ActiveRecord::Base
     
   end
 
+  def current_admin
+    current_user && is_admin
+  end
+
   def name_display
     if first_name || last_name
       "#{first_name} #{last_name}".strip

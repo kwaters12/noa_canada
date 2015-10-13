@@ -49,9 +49,10 @@ class OrdersController < ApplicationController
 
   def show 
     @order = Order.find(params[:id])
-    # if @order.status != 'Completed'
-    #   handle_stripe_payment(@order)
-    # end
+
+    if @order.status != 'Completed'
+      redirect_to @order.paypal_url(order_path(@order))
+    end
     # if @order.document.exists? && params[:payment_status] == "Completed"
     #   redirect_to root_url, notice: "Your order has been received. You can view the details below."
     # elsif  @order.docusign_url.nil? && @order.document.nil?
@@ -90,11 +91,9 @@ class OrdersController < ApplicationController
   def hook
     params.permit!
     status = params[:payment_status]
-    Rails.logger.info("%%%%%%%%%%%%%%%%")
-    Rails.logger.info(params)
-    Rails.logger.info("%%%%%%%%%%%%%%%%")
-    if status == "Completed"
+    if status == "Completed"      
       @order = Order.find params[:invoice]
+      ClientMailer.delay.dropbox_link(@order.taxpayer, @order.dropbox_url)
       @order.update_attributes notification_params: params, status: status, transaction_id: params[:txn_id], purchased_at: Time.now
     end
   end

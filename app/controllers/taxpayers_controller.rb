@@ -102,7 +102,8 @@ class TaxpayersController < ApplicationController
     if order.assets
       order.assets.each do |asset|
         asset.pdf_path = pdf_path = "#{Rails.root}/public#{asset.document.url.split('?')[0]}"        
-        move_pdf(pdf_path, asset)      
+        format = File.extname(asset.document_file_name)
+        move_pdf(pdf_path, asset, format)      
       end
       send_link(order)
     else    
@@ -131,8 +132,8 @@ class TaxpayersController < ApplicationController
     @taxpayer.sin + ' ' + @taxpayer.last_name + ', ' + @taxpayer.first_name + ' ' + Date.today.to_s +  '.pdf'
   end
 
-  def move_pdf(pdf_path, asset)
-    @dropbox_client.put_file('/' + folder_name + '/' + @taxpayer.last_name + ', ' + @taxpayer.first_name + ' ' +asset.document_file_name + ' ' + Date.today.to_s +  '.pdf', open(pdf_path), overwrite=true)
+  def move_pdf(pdf_path, asset, format)
+    @dropbox_client.put_file('/' + folder_name + '/' + @taxpayer.last_name + ', ' + @taxpayer.first_name + ' ' +asset.document_file_name + ' ' + Date.today.to_s +  format, open(pdf_path), overwrite=true)
   end
 
   def send_link(order)

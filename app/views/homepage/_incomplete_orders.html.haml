@@ -1,28 +1,44 @@
 - if @incomplete_orders
-  .row
+  .row.headings
     .col-md-2
       Customer
     .col-md-2
       Order #
-    .col-md-2
-      Purchased On
     .col-md-3
+      Purchased On
+    .col-md-2
       Order Status
     .col-md-3
-      Dropbox Folder 
+      Dropbox Folder  
   %br
-  - @incomplete_orders.each do |order|
-    / = link_to "View Order", order_path(order)
-    .row
+  - @incomplete_orders.each do |order|    
+    .row.order-items
       .col-md-2
         = order.taxpayer.name_display
       .col-md-2
-        = order.order_number
-      .col-md-2
-        = order.purchased_at
+        = link_to order.order_number, order_path(order)
       .col-md-3
+        - if order.purchased_at
+          = order.purchased_at.strftime("%m/%d/%Y at %I:%M%p")  
+        - else
+          %span{"data-placement" => "right", "data-toggle" => "tooltip", :title => "Please Pay Before we Process Your Order", :type => "button"} 
+            = link_to "Pay for Order", order_path(order)
+      .col-md-2
         = order.status
       .col-md-3
-        = order.dropbox_url
+        = link_to 'Open in Dropbox', order.dropbox_url
+  - @incomplete_orders.each do |order|
+    .row.order-items-mobile
+      .col-sm-6.col-xs-6
+        %strong
+          = order.taxpayer.name_display
+      .col-sm-6.col-xs-6
+        = order.order_number
+      .col-sm-6.col-xs-6
+        - if order.status === 'Completed'
+          = order.status
+        - else 
+          %span{"data-placement" => "right", "data-toggle" => "tooltip", :title => "Please Pay Before we Process Your Order", :type => "button"} 
+            = link_to "Pay for Order", order_path(order)
 - else 
   You have no complete orders

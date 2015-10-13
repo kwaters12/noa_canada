@@ -6,7 +6,7 @@ class CreateOrders < ActiveRecord::Migration
       t.string :status
       t.string :pdf_path
       t.string :docusign_url
-      t.string :purchased_at
+      t.datetime :purchased_at
       t.string :transaction_id
       t.text :notification_params
 

@@ -42,6 +42,9 @@ $(document).ready(function() {
   $('.sinnum').mask('000 000 000');
   $('.datepicker').mask('0000/00/00');
 
+  $('[data-toggle="tooltip"]').tooltip()
+
+
   // $('.datepicker').datepicker({
   //   format: 'YYYY/MM/DD'
   // });
@@ -57,7 +60,6 @@ $(document).ready(function() {
   $('.partial-info').on('click', function() {
     var thisLink = $(this).data('link');
     $('#' + thisLink + '-radio').screwDefaultButtons("check");
-    console.log(thisLink);
   });
 
   $('input:radio').screwDefaultButtons({

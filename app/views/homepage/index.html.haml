@@ -37,10 +37,10 @@
               .row
                 .homepage-buttons              
                   .homepage-button
-                    = link_to "New User<br><h4>ORDER NOW!</h4>".html_safe, new_agent_registration_path, class: 'btn btn-primary btn-raised'
+                    = link_to "<h4>New<br>User</h4><br><h4>ORDER NOW!</h4>".html_safe, new_agent_registration_path, class: 'btn btn-primary btn-raised'
 
                   .homepage-button
-                    = link_to "Returning NOA Agent<br><h4>ORDER NOW!</h4>".html_safe, new_agent_session_path, class: 'btn btn-primary btn-raised' 
+                    = link_to "<h4>Returning <br>NOA Agent</h4><br><h4>ORDER NOW!</h4>".html_safe, new_agent_session_path, class: 'btn btn-primary btn-raised' 
               .row
                 .homepage-faqs
                   = link_to 'Frequently Asked Questions', faqs_path

@@ -29,4 +29,10 @@ class Order < ActiveRecord::Base
     "#{Rails.application.secrets.paypal_host}/cgi-bin/webscr?" + values.to_query
   end 
 
+  rails_admin do
+    configure :agent do
+      label 'Agent: '
+    end
+  end
+
 end
