@@ -16,13 +16,13 @@
   /   = @sub_brokerage.phone_number
   .nav-items
     .nav-item
-      = link_to "Order History", root_url, :class => ('active' if controller_name === 'homepage')
+      = link_to "<i class='fa fa-clock-o'></i>Order History".html_safe, root_url, :class => ('active' if controller_name === 'homepage')
     .nav-item
-      = link_to "New Order", new_order_path, :class => ('active' if controller_name === 'orders')
+      = link_to "<i class='fa fa-file'></i>New Order".html_safe, new_order_path, :class => ('active' if controller_name === 'orders')
     / .nav-item
     /   = link_to "Customer List", taxpayers_path, :class => ('active' if controller_name === 'taxpayers')
     - if !current_agent.dropbox_session.nil?
       .nav-item
-        = link_to "Dropbox Folder",  current_agent.dropbox_session
+        = link_to "<i class='fa fa-dropbox'></i>Dropbox Folder".html_safe, current_agent.dropbox_session, target: 'blank'
     .nav-item
-      = link_to "Account Settings", edit_agent_registration_path, :class => ('active' if controller_name === 'registrations')
+      = link_to "<i class='fa fa-user'></i>Account Settings".html_safe, edit_agent_registration_path, :class => ('active' if controller_name === 'registrations')

@@ -11,7 +11,6 @@
     Dropbox Folder 
 %br
 - @orders.each do |order|
-  / = link_to "View Order", order_path(order)
   .row.order-items
     .col-md-2
       = order.taxpayer.name_display
@@ -25,7 +24,6 @@
           = link_to "Pay for Order", order_path(order)
     .col-md-2
       = order.status
-
     .col-md-3
       = link_to 'Open in Dropbox', order.dropbox_url
 - @orders.each do |order|
