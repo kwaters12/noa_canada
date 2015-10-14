@@ -3,7 +3,7 @@
     .agent-form
       .col-md-12
         %strong Brokerage Phone Number
-        = f.text_field :office_phone_number, class: 'form-control phone', label: false, :validate => true
+        = f.telephone_field :office_phone_number, class: 'form-control phone', label: false, :validate => true
         .error-box.agent_phone_number_errors
       / .col-md-6
       /   %strong Your Mortgage License #

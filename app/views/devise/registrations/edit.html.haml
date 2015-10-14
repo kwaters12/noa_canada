@@ -13,8 +13,8 @@
               = f.input :email, autofocus: true, required: true, input_html: { class: 'form-control' }, label: "Email Address"
               = f.input :sub_brokerage_name, autofocus: true, input_html: { class: 'form-control' }, label: "Sub-Brokerage"
               = f.input :brokerage_name, autofocus: true, input_html: { class: 'form-control' }, label: "Brokerage"
-              = f.input :phone_number, autofocus: true, input_html: { class: 'form-control' }, label: "Cell Phone Number"
-              = f.input :office_phone_number, autofocus: true, input_html: { class: 'form-control' }, label: "Office Phone Number"
+              = f.input :phone_number, autofocus: true, input_html: { class: 'form-control phone' }, label: "Cell Phone Number"
+              = f.input :office_phone_number, autofocus: true, input_html: { class: 'form-control phone' }, label: "Office Phone Number", as: :tel
               / - if devise_mapping.confirmable? && resource.pending_reconfirmation?
               /   %p
               / Currently waiting confirmation for: #{resource.unconfirmed_email}

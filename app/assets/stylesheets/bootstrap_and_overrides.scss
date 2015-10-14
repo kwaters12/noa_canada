@@ -1189,6 +1189,11 @@ ul.ui-autocomplete {
   display: none;
 }
 @media all and (max-width: 992px) {
+  .alert {
+    position: relative;
+    top: 8px;
+    left: 0;
+  }
   .form-fields {
     .dropdown {
       display: block;
@@ -1327,6 +1332,7 @@ ul.ui-autocomplete {
   }
   .header-logo {
     text-align: center;
+    width: 100%;
     img {
       width: 250px;
       margin: 0 auto;

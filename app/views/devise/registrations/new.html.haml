@@ -38,7 +38,7 @@
                     /= f.text_field :email_confirmation, required: true
                     .col-md-3.col-sm-6
                       %label Cell Phone Number
-                      = f.text_field :phone_number, class: 'form-control phone', label: false, :validate => true
+                      = f.telephone_field :phone_number, class: 'form-control phone', label: false, :validate => true
                       .error-box.agent_phone_number_errors
                   .row.terms
                     .col-md-9
