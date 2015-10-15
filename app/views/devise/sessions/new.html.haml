@@ -1,18 +1,26 @@
-.container.text-center
-  .cta-selection
-    = form_tag session_path(:agent) do
-      .col-md-3
-        %h3 <strong>Returning NOA Agent</strong>
-      .col-md-3
-        Email:
-        = text_field_tag 'agent[email]', nil, class: 'form-control'
-      .col-md-3
-        Password
-        = password_field_tag 'agent[password]', nil, class: 'form-control'
-      .col-md-3
-        %button.btn.btn-primary.btn-raised Sign in
-        %br
-        = link_to "Forgot your password?", new_password_path(:agent)
-        %br
-        = check_box_tag 'agent[remember_me]'
-        = label_tag 'agent[remember_me]', 'Remember me'
+.container  
+  .form-fields
+    .row
+      .col-md-5
+        .header-logo
+          = link_to image_tag('logo.png'), root_url
+      .col-md-7
+        %h2 Sign in
+    .col-md-10.col-md-offset-1.edit-profile
+      .cta-selection
+        = form_tag session_path(:agent) do
+          .col-md-3
+            %h3 <strong>Returning NOA Agent</strong>
+          .col-md-3
+            Email:
+            = text_field_tag 'agent[email]', nil, class: 'form-control'
+          .col-md-3
+            Password
+            = password_field_tag 'agent[password]', nil, class: 'form-control'
+          .col-md-3
+            %button.btn.btn-primary.btn-raised Sign in
+            %br
+            = link_to "Forgot your password?", new_password_path(:agent)
+            %br
+            = check_box_tag 'agent[remember_me]'
+            = label_tag 'agent[remember_me]', 'Remember me'

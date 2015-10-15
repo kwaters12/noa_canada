@@ -16,7 +16,12 @@ class RegistrationsController < Devise::RegistrationsController
     end    
     @agent.update_attributes(agent_params)
     sign_in(@agent, bypass: true) # needed for devise
-    render_wizard @agent
+    if render_wizard
+      render_wizard @agent
+    else
+      redirect_to root_url, notice: "Account Changes Saved Successfully"
+    end
+
   end
 
   def check_errors

@@ -20,8 +20,7 @@
                 %li{value: 'None', onclick: "click_radio('insurance-radio');"} I am a Life Insurance Licensee
                 %li{value: 'None', onclick: "click_radio('cpa-radio');"} I am a CPA
                 %li{value: 'None', onclick: "click_radio('other-radio');"} I am an Alternative Representative
-                %li{value: 'None', onclick: "click_radio('taxpayer-radio');"} I am Not a Tax Agent
-                
+                %li{value: 'None', onclick: "click_radio('taxpayer-radio');"} I am Not a Tax Agent              
                 
           .row
             .col-md-6.form-radios      
@@ -63,22 +62,22 @@
                   = radio_button :agent, :agent_type, 'Other', onclick: "render_partial('other');", id: 'other-radio'
             .col-md-6.partial-wrapper.form-group
               #partial-area
-                .partial-info{:data => {:link => 'taxpayer', :title => 'I am Not a Tax Agent'}, :onclick => "set_title('I am Not a Tax Agent'); render_partial('taxpayer');  "}
+                .partial-info{:data => {:link => 'taxpayer', :title => 'I am Not a Tax Agent'}, :onclick => "set_title('I am Not a Tax Agent'); click_radio('taxpayer-radio'); render_partial('taxpayer');  "}
                   %i.fa.fa-angle-double-right
                   I am not a tax agent
-                .partial-info{:data => {:link => 'mortgage', :title => 'I am a Mortgage Broker'}, :onclick => "set_title('I am a Mortgage Broker'); render_partial('mortgage broker');"}
+                .partial-info{:data => {:link => 'mortgage', :title => 'I am a Mortgage Broker'}, :onclick => "set_title('I am a Mortgage Broker'); click_radio('mortgage-radio'); render_partial('mortgage broker');"}
                   %i.fa.fa-angle-double-right
                   I am a Mortgage Broker
-                .partial-info{:data => {:link => 'mutual', :title => 'I am a Mutual Fund Licensee'}, :onclick => "set_title('I am a Mutual Fund Licensee'); render_partial('mutual fund licensee');"}
+                .partial-info{:data => {:link => 'mutual', :title => 'I am a Mutual Fund Licensee'}, :onclick => "set_title('I am a Mutual Fund Licensee'); click_radio('mutual-radio'); render_partial('mutual fund licensee');"}
                   %i.fa.fa-angle-double-right
                   I am a Mutual Fund Licensee
-                .partial-info{:data => {:link => 'insurance', :title => 'I am a Life Insurance Licensee'}, :onclick => "set_title('I am a Life Insurance Licensee'); render_partial('life insurance licensee');"}
+                .partial-info{:data => {:link => 'insurance', :title => 'I am a Life Insurance Licensee'}, :onclick => "set_title('I am a Life Insurance Licensee'); click_radio('insurance-radio'); render_partial('life insurance licensee');"}
                   %i.fa.fa-angle-double-right
                   I am a Life Insurance Licensee
-                .partial-info{:data => {:link => 'cpa', :title => 'I am a CPA'}, :onclick => "set_title('I am a CPA'); render_partial('cpa');"}
+                .partial-info{:data => {:link => 'cpa', :title => 'I am a CPA'}, :onclick => "set_title('I am a CPA'); click_radio('cpa-radio'); render_partial('cpa');"}
                   %i.fa.fa-angle-double-right
                   I am a Certified Professional Accountant
-                .partial-info{:data => {:link => 'other', :title => 'I am an Alternative Representative'}, :onclick => "set_title('I am an Alternative Representative'); render_partial('other');"}
+                .partial-info{:data => {:link => 'other', :title => 'I am an Alternative Representative'}, :onclick => "set_title('I am an Alternative Representative'); click_radio('other-radio'); render_partial('other');"}
                   %i.fa.fa-angle-double-right
                   I am an Alternate Representative
               .col-md-4.col-md-offset-1

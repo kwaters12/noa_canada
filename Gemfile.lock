@@ -191,6 +191,10 @@ GEM
       cliver (~> 0.3.2)
       safe_shell (~> 1.0)
     pg (0.18.3)
+    phony (2.15.4)
+    phony_rails (0.12.10)
+      activesupport (>= 3.0)
+      phony (~> 2.12)
     prawn (2.0.2)
       pdf-core (~> 0.6.0)
       ttfunk (~> 1.4.0)
@@ -347,6 +351,7 @@ DEPENDENCIES
   paypal-sdk-rest
   pdf-forms
   pg
+  phony_rails
   prawn
   quiet_assets
   rack-timeout

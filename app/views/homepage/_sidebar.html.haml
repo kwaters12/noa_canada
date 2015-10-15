@@ -1,5 +1,5 @@
 .sidebar
-  = link_to image_tag('logo.png'), root_url
+  = link_to image_tag('logo.png', :class => ('active' if controller_name === 'homepage')), root_url
   / .agent-info
   /   = @agent.name_display
   /   %br
@@ -23,6 +23,9 @@
     /   = link_to "Customer List", taxpayers_path, :class => ('active' if controller_name === 'taxpayers')
     - if !current_agent.dropbox_session.nil?
       .nav-item
-        = link_to "<i class='fa fa-dropbox'></i>Dropbox Folder".html_safe, current_agent.dropbox_session, target: 'blank'
+        = link_to "<i class='fa fa-dropbox'></i>Dropbox Folder".html_safe, current_agent.dropbox_session, target: 'blank' 
+    - else
+      .nav-item{"data-placement" => "right", "data-toggle" => "tooltip", :title => "Make an Order First", :type => "button"}
+        = link_to "<i class='fa fa-dropbox'></i>Dropbox Folder".html_safe, new_order_path
     .nav-item
       = link_to "<i class='fa fa-user'></i>Account Settings".html_safe, edit_agent_registration_path, :class => ('active' if controller_name === 'registrations')

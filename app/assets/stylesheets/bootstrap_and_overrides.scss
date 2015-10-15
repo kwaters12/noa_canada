@@ -70,6 +70,9 @@ label {
   display: block;
   font-weight: 500;
 }
+.mobile-phone {
+  display: none;
+}
 .headings {
   font-weight: bold;
 }
@@ -193,7 +196,7 @@ label {
       padding: 10px 15px;
       transition: 0.2s;
       border: 1px solid #B1DDEB;
-
+      font-weight: 500;
       border-collapse: collapse;
       &:hover {
         text-decoration: none;
@@ -225,6 +228,9 @@ label {
     outline: none;
   }
 }
+.edit-profile {
+  margin-top: 65px;
+}
 .order-form {
   font-weight: 500;
   margin-top: 50px;
@@ -250,7 +256,6 @@ label {
     width: 50%;
   }
   .form-area {
-    margin-top: 20px;
     display: inline-block;
     width: 100%;
     .btn {
@@ -260,6 +265,7 @@ label {
     label {
       margin-top: 5px;
       font-weight: bold;
+      display: block;
     }
   }
 }
@@ -685,9 +691,9 @@ h1 {
   border: 1px solid $dark_grey;
   clear: both;
   display: inline-block;
-  margin-top: 65px;
   label {
     display: inline;
+    margin-top: 10px;
   }
   h3 {
     font-size: 1.1em;
@@ -1189,6 +1195,15 @@ ul.ui-autocomplete {
   display: none;
 }
 @media all and (max-width: 992px) {
+  .edit-profile {
+    margin-top: 0;
+  }
+  .phone-hide {
+    display: none;
+  }
+  .mobile-phone {
+    display: block;
+  }
   .alert {
     position: relative;
     top: 8px;

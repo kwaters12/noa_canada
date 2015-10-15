@@ -1,12 +1,13 @@
 - flash.each do |name, msg|
-  .col-md-10.col-md-offset-1
-    .alert{class: "alert-#{ name == :notice ? 'success' : 'danger' }"}
-      %a.close{href: '#', data: {dismiss: 'alert'}} &times;
-      %div= msg
+  - if msg.length > 2
+    .col-md-10.col-md-offset-1
+      .alert{class: "alert-#{ name == :notice ? 'success' : 'danger' }"}
+        %a.close{href: '#', data: {dismiss: 'alert'}} &times;
+        
+        %div= msg
 - if resource.errors.any?
   .col-md-10.col-md-offset-1
     .alert.alert-danger
       %a.close{href: '#', data: {dismiss: 'alert'}} &times;
-      Notice: 
       = devise_error_messages!
 .clearfix
