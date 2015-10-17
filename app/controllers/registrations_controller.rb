@@ -1,6 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
 
-    before_action :check_errors
+  before_action :check_errors
+  # before_filter :configure_permitted_parameters
 
   def show
     @agent = Agent.find(params[:agent_id])
@@ -14,13 +15,16 @@ class RegistrationsController < Devise::RegistrationsController
       generated_password = Devise.friendly_token.first(8)
       @agent.password = generated_password
     end    
-    @agent.update_attributes(agent_params)
+    if  @agent.update_attributes(agent_params)
     sign_in(@agent, bypass: true) # needed for devise
-    if render_wizard
-      render_wizard @agent
-    else
+    # if render_wizard
+    #   render_wizard @agent
+    # else
       redirect_to root_url, notice: "Account Changes Saved Successfully"
+    else 
+      redirect_to root_url, notice: "Login Failed"
     end
+    # end
 
   end
 
@@ -42,6 +46,11 @@ class RegistrationsController < Devise::RegistrationsController
   #     render :json=> @agent.errors, :status=>422
   #   end
   # end
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up).push(:account_number, :agent_type, :designated_individual, :first_name, :is_admin, :last_name, :email, :license_number, :phone_number, :brokerage_name, :sub_brokerage_name, :brokerage_id, :office_phone_number)
+    devise_parameter_sanitizer.for(:account_update).push(:account_number, :agent_type, :designated_individual, :first_name, :is_admin, :last_name, :email, :license_number, :phone_number, :brokerage_name, :sub_brokerage_name, :brokerage_id, :office_phone_number)
+  end
 
   private
 

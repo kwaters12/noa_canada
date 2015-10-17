@@ -47,6 +47,7 @@ class DeviseCreateAgents < ActiveRecord::Migration
     add_index :agents, :email,                unique: true
     add_index :agents, :reset_password_token, unique: true
     add_index :agents, :confirmation_token,   unique: true
+    Agent.update_all({:confirmed_at => DateTime.now, :confirmation_sent_at => DateTime.now})
     # add_index :agents, :unlock_token,         unique: true
   end
 end
