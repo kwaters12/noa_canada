@@ -6,27 +6,37 @@
       .col-md-10
         %h2 Edit Account Info
         .cta-selection.edit-profile
-          = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-            = f.error_notification
+          = form_for @agent, :url => registration_path(@agent), :html => {:method => 'put'}, :id => 'activation-form', builder: Judge::FormBuilder do |f|
+            / = f.error_notification
             .col-md-3
               %h4 Account Details
-              = f.input :email, autofocus: true, required: true, input_html: { class: 'form-control' }, label: "Email Address"
-              = f.input :sub_brokerage_name, autofocus: true, input_html: { class: 'form-control' }, label: "Sub-Brokerage"
-              = f.input :brokerage_name, autofocus: true, input_html: { class: 'form-control' }, label: "Brokerage"
-              = f.input :phone_number, autofocus: true, input_html: { class: 'form-control phone' }, label: "Cell Phone Number"
-              = f.input :office_phone_number, autofocus: true, input_html: { class: 'form-control phone' }, label: "Office Phone Number", as: :tel
+              %label Email
+              = f.text_field :email, autofocus: true, required: true, class: 'form-control', label: "Email Address"
+              %label Sub-Brokerage
+              = f.text_field :sub_brokerage_name, autofocus: true, class: 'form-control', label: "Sub-Brokerage"
+              %label Brokerage
+              = f.text_field :brokerage_name, autofocus: true, class: 'form-control', label: "Brokerage"
+              %label Cell Phone Number
+              = f.text_field :phone_number, autofocus: true, class: 'form-control phone'
+              %label Office Phone Number
+              = f.text_field :office_phone_number, autofocus: true, class: 'form-control phone', type: :tel
               / - if devise_mapping.confirmable? && resource.pending_reconfirmation?
               /   %p
               / Currently waiting confirmation for: #{resource.unconfirmed_email}
             .col-md-3
               %h4 Change Password
-              = f.input :current_password, hint: "we need your current password to confirm your changes", required: true, input_html: { class: 'form-control' }, label: 'Current Password'
-              = f.input :password, autocomplete: "off", label: 'New Password', input_html: { class: 'form-control' }
-              = f.input :password_confirmation, required: false, input_html: { class: 'form-control' }, label: 'Password Confirmation'
+              / %label Current Password
+              / = f.password_field :current_password, hint: "we need your current password to confirm your changes", required: true, class: 'form-control', label: 'Current Password', :validate => true
+              / .hint 
+              /   We need your current password to confirm your changes
+              %label New Password
+              = f.password_field :password, class: 'form-control', id: 'pass1', :validate => true, onkeyup: 'checkEmpty(); return false;'
+              %label Confirm New Password
+              = f.password_field :password_confirmation, class: 'form-control', id: 'pass2', onkeyup: "checkPass(); return false;", :validate => true
               
               .form-actions
             .col-md-3
-              = f.button :submit, "Update Account", class: 'btn btn-primary btn-raised'
+              = f.submit "Update Profile", class: 'btn btn-primary btn-raised'
             .col-md-3
               %h4 Cancel my account
               %p

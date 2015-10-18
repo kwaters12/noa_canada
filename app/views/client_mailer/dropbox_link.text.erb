@@ -1,7 +1,8 @@
-Welcome to NOACanada.ca, <%= @client.first_name %> <%= @client.last_name %>
+Welcome to NOACanada.ca, <%= @order.agent.first_name %> <%= @order.agent.last_name %>
 ============================================
 
-You have successfully completed your order for your last three years' NOAs (Notices of Assessment).
-You can find your application and your completed NOAs in this shared dropbox folder: <%= @link %>.
+You have successfully completed your order for your last three years' NOAs (Notices of Assessment). Our team is on it, and you will receive your NOAs as soon as possible.
+
+You can find your application and your completed NOAs in this shared dropbox folder: <%= @order.dropbox_url %>.
 
 Thanks for applying and have a great day!

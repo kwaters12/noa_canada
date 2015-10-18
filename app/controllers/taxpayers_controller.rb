@@ -113,7 +113,7 @@ class TaxpayersController < ApplicationController
       send_link(order)  
     end   
 
-    
+    ClientMailer.dropbox_link(order).deliver_now 
     order.save    
   end
 

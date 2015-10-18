@@ -49,10 +49,11 @@ class OrdersController < ApplicationController
 
   def show 
     @order = Order.find(params[:id])
+    redirect_to root_url, notice: "Order Complete! We will notify when your NOAs are ready."
 
-    if @order.status != 'Completed'
-      redirect_to @order.paypal_url(order_path(@order))
-    end
+    # if @order.status != 'Completed'
+    #   redirect_to @order.paypal_url(order_path(@order))
+    # end
     # if @order.document.exists? && params[:payment_status] == "Completed"
     #   redirect_to root_url, notice: "Your order has been received. You can view the details below."
     # elsif  @order.docusign_url.nil? && @order.document.nil?
@@ -81,9 +82,6 @@ class OrdersController < ApplicationController
   def paypal
     @order = Order.find(params[:format])
     taxpayer = Taxpayer.find(@order.taxpayer_id)
-    # Rails.logger.info("^^^^^^^^^^^^^^^^")
-    # Rails.logger.info(order.inspect)
-    # Rails.logger.info("^^^^^^^^^^^^^^^^")
     ClientMailer.dropbox_link(taxpayer, @order.dropbox_url).deliver_now
     redirect_to @order.paypal_url(@order)
   end
@@ -93,16 +91,13 @@ class OrdersController < ApplicationController
     status = params[:payment_status]
     if status == "Completed"      
       @order = Order.find params[:invoice]
-      ClientMailer.delay.dropbox_link(@order.taxpayer, @order.dropbox_url)
-      @order.update_attributes notification_params: params, status: status, transaction_id: params[:txn_id], purchased_at: Time.now
+      @order.update_attributes notification_params: params, status: status, transaction_id: params[:txn_id], purchased_at: Time.now 
+      
     end
+    render nothing: true
   end
 
   private
-
-  def handle_stripe_payment(order)
-
-  end
 
   def generate_order(client, order)
     order.pdf_path = client.pdf_path = pdf_path = NoaApplicationPDFForm.new(order).export

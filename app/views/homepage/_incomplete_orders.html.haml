@@ -16,7 +16,7 @@
       .col-md-2
         = order.taxpayer.name_display
       .col-md-2
-        = link_to order.order_number, order_path(order)
+        = order.order_number
       .col-md-3
         - if order.purchased_at
           = order.purchased_at.strftime("%m/%d/%Y at %I:%M%p")  

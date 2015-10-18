@@ -4,12 +4,13 @@
       = link_to "Taking the 'NO' out of NOA", root_url
     #name
       %p
-        - if agent_signed_in? && !current_agent.encrypted_password.empty?
-          = link_to current_agent.name_display, edit_agent_registration_path 
-          |
-          = link_to "Sign Out", destroy_agent_session_path, method: :delete 
+        
+        - if agent_signed_in?
+          - if !current_agent.encrypted_password.empty?
+            = link_to current_agent.name_display, edit_agent_registration_path 
+            |
+            = link_to "Sign Out", destroy_agent_session_path, method: :delete 
           
-          / = link_to "Tip Us", new_tip_path
         - else 
           = link_to "Register", new_agent_registration_path 
           |

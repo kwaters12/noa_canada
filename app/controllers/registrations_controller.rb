@@ -10,21 +10,21 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def update
+
     @agent = current_agent
+    if params[:agent][:account_update]
+      ClientMailer.welcome_email(current_agent).deliver_now
+    end
     if !@agent.password
       generated_password = Devise.friendly_token.first(8)
       @agent.password = generated_password
     end    
     if  @agent.update_attributes(agent_params)
-    sign_in(@agent, bypass: true) # needed for devise
-    # if render_wizard
-    #   render_wizard @agent
-    # else
+      sign_in(@agent, bypass: true) # needed for devise
       redirect_to root_url, notice: "Account Changes Saved Successfully"
     else 
       redirect_to root_url, notice: "Login Failed"
     end
-    # end
 
   end
 
@@ -55,7 +55,7 @@ class RegistrationsController < Devise::RegistrationsController
   private
 
   def agent_params
-    params.require(:agent).permit(:account_number, :agent_type, :designated_individual, :first_name, :is_admin, :last_name, :email, :license_number, :phone_number, :password, :password_confirmation, :office_phone_number)
+    params.require(:agent).permit(:account_number, :agent_type, :designated_individual, :first_name, :is_admin, :last_name, :email, :license_number, :phone_number, :password, :password_confirmation, :office_phone_number, :brokerage_name, :sub_brokerage_name)
   end
 
   def after_sign_up_path_for(resource)

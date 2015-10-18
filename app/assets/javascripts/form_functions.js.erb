@@ -119,6 +119,7 @@ $(document).ready(function() {
   });    
   $('body').on('click', '.submit-btn', function(e) {
     e.preventDefault();
+    $(this).attr('disabled', true);
     var elements = $('.form-control');
     var elemAmt = elements.length;
     var validations = [];
