@@ -49,11 +49,13 @@ class OrdersController < ApplicationController
 
   def show 
     @order = Order.find(params[:id])
-    redirect_to root_url, notice: "Order Complete! We will notify when your NOAs are ready."
+    
 
-    # if @order.status != 'Completed'
-    #   redirect_to @order.paypal_url(order_path(@order))
-    # end
+    if @order.status != 'Completed'
+      redirect_to @order.paypal_url(order_path(@order))
+    else
+      redirect_to root_url, notice: "Order Complete! We will notify when your NOAs are ready."
+    end
     # if @order.document.exists? && params[:payment_status] == "Completed"
     #   redirect_to root_url, notice: "Your order has been received. You can view the details below."
     # elsif  @order.docusign_url.nil? && @order.document.nil?
