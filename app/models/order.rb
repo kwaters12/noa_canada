@@ -15,7 +15,7 @@ class Order < ActiveRecord::Base
   def paypal_url(return_path)
     invoice_id = 10000 + id
     values = {
-        business: "NOACanada.ca",
+        business: "kellywaters-facilitator@gmail.com",
         cmd: "_xclick",
         upload: 1,
         return: "#{Rails.application.secrets.app_host}#{return_path}",
