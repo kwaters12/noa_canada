@@ -13,7 +13,7 @@ class Agent < ActiveRecord::Base
   validates :phone_number, length: { is: 14 }
   # validates :license_number, presence: true, if: -> { required_for_step?(:choose_type)}
   # validates :sub_brokerage_name, presence: true, if: -> { required_for_step?(:choose_type)}
-
+  validates :email, uniqueness: true
   belongs_to :sub_brokerage
   belongs_to :brokerage
   has_many :taxpayers

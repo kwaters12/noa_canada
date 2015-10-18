@@ -80,8 +80,11 @@
                 .partial-info{:data => {:link => 'other', :title => 'I am an Alternative Representative'}, :onclick => "set_title('I am an Alternative Representative'); click_radio('other-radio'); render_partial('other');"}
                   %i.fa.fa-angle-double-right
                   I am an Alternate Representative
-              .col-md-4.col-md-offset-1
-                = f.submit "Continue", class: "btn btn-default btn-flat", id: "submit-button"
+              .text-right
+                = button_tag( class: "btn btn-primary btn-raised", id: "submit-button" ) do
+                  Continue
+                  %i.fa.fa-angle-right
+                / = f.submit "Continue", class: "btn btn-primary btn-raised", id: "submit-button"
       - else 
         :javascript
           window.location.href="/"
@@ -121,29 +124,29 @@
   function render_partial(element) {
     switch(element) {
       case 'taxpayer':
-        $('#submit-button').show().prop('value', 'To Get Your NOA, Contact an Agent').attr('data-type', 'taxpayer')
+        $('#submit-button').show().html('To Get Your NOA, Contact an Agent <i class="fa fa-angle-right"></i>').attr('data-type', 'taxpayer')
         $('#partial-area').hide().html("#{escape_javascript(render 'taxpayer_form', agent: @agent)}").fadeIn();
         break;
       case 'mortgage broker':
          $('#partial-area').hide().html("#{escape_javascript(render 'mortgage_broker_form', agent: @agent)}").fadeIn();
-         $('#submit-button').show().prop('value', 'Continue').attr('data-type', 'mortgage-broker');
+         $('#submit-button').show().html('Continue <i class="fa fa-angle-right"></i>').attr('data-type', 'mortgage-broker');
         break;
       case 'mutual fund licensee':
          $('#partial-area').hide().html("#{escape_javascript(render 'mutual_fund_licensee_form', agent: @agent)}").fadeIn();
-         $('#submit-button').show().prop('value', 'Continue').attr('data-type', 'mutual-fund-licensee');
+         $('#submit-button').show().html('Continue <i class="fa fa-angle-right"></i>').attr('data-type', 'mutual-fund-licensee');
         break;
       case 'life insurance licensee':
          $('#partial-area').hide().html("#{escape_javascript(render 'life_insurance_licensee_form', agent: @agent)}").fadeIn();
-         $('#submit-button').show().prop('value', 'Continue').attr('data-type', 'life-insurance-licensee');
+         $('#submit-button').show().html('Continue <i class="fa fa-angle-right"></i>').attr('data-type', 'life-insurance-licensee');
         break;
       case 'cpa':
          $('#partial-area').hide().html("#{escape_javascript(render 'cpa_form', agent: @agent)}").fadeIn();
-         $('#submit-button').show().prop('value', 'Continue').attr('data-type', 'cpa');
+         $('#submit-button').show().html('Continue <i class="fa fa-angle-right"></i>').attr('data-type', 'cpa');
         break;
 
       case 'other':
          $('#partial-area').hide().html("#{escape_javascript(render 'other_form', agent: @agent)}").fadeIn();
-         $('#submit-button').show().prop('value', 'Continue').attr('data-type', 'other');
+         $('#submit-button').show().html('Continue <i class="fa fa-angle-right"></i>').attr('data-type', 'other');
         break;
       default:
         $('#partial-area').hide().html('<h3>Please select a radio button </h3>').fadeIn();
