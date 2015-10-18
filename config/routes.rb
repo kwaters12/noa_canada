@@ -30,6 +30,8 @@ Rails.application.routes.draw do
   get '/faqs' => 'static_pages#faqs', as: 'faqs'
   get '/contact' => 'static_pages#contact', as: 'contact'
   get '/contact_agent' => 'static_pages#contact_agent', as: 'contact-agent'
+  get '/terms-of-service' => 'static_pages#terms_of_service', as: 'terms-of-service'
+  get '/privacy-policy' => 'static_pages#privacy_policy', as: 'privacy-policy'
 
   devise_scope :agent do
     put "/confirm" => "confirmations#confirm"
