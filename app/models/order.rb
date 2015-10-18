@@ -15,7 +15,7 @@ class Order < ActiveRecord::Base
   def paypal_url(return_path)
     invoice_id = 10000 + id
     values = {
-        business: "kellywaters-facilitator@gmail.com",
+        business: "payments-facilitator@mrtaxes.ca",
         cmd: "_xclick",
         upload: 1,
         return: "#{Rails.application.secrets.app_host}#{return_path}",
@@ -23,6 +23,7 @@ class Order < ActiveRecord::Base
         amount: 52.50,
         item_name: "NOA Canada - Order",
         item_number: 1,
+        currency: 'CAD',
         quantity: '1',
         notify_url: "#{Rails.application.secrets.app_host}/hook"
     }
