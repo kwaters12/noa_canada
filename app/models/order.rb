@@ -20,7 +20,7 @@ class Order < ActiveRecord::Base
         upload: 1,
         return: "#{Rails.application.secrets.app_host}#{return_path}",
         invoice: id,
-        amount: 50,
+        amount: 52.50,
         item_name: "NOA Canada - Order",
         item_number: 1,
         quantity: '1',
