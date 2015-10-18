@@ -12,7 +12,10 @@ class RegistrationsController < Devise::RegistrationsController
   def update
 
     @agent = current_agent
-    if params[:agent][:account_update]
+    Rails.logger.info("DSFFDSFDSFD")
+    Rails.logger.info(params[:account_confirmed])
+    Rails.logger.info("DSFFDSFDSFD")
+    if params[:account_confirmed]
       ClientMailer.welcome_email(current_agent).deliver_now
     end
     if !@agent.password
