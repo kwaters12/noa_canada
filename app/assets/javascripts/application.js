@@ -25,5 +25,6 @@
 //= require jquery.mask.min
 //= require bootstrap-material-design
 //= require dropzone
+//= require braintree
 //= require form_functions
 //= require_tree .

@@ -16,6 +16,7 @@ class TaxpayersController < ApplicationController
 
   def new 
     @taxpayer = Taxpayer.new
+    @client_token = Braintree::ClientToken.generate
     # @order = Order.new
   end
 
@@ -38,7 +39,11 @@ class TaxpayersController < ApplicationController
         
         format.html { 
           # redirect_to order_path(@order)
-          redirect_to @order.paypal_url(order_path(@order))
+          if params[:taxpayer][:payment_method] === 'Pay with Paypal'
+            redirect_to @order.paypal_url(order_path(@order))
+          else
+            redirect_to order_path(@order)
+          end
         }
         format.js
         format.json  { render json: @taxpayer.to_json(include: @order) }

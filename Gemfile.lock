@@ -63,6 +63,8 @@ GEM
       sass (>= 3.3.0)
     bootstrap3-datetimepicker-rails (4.14.30)
       momentjs-rails (>= 2.8.1)
+    braintree (2.50.0)
+      builder (>= 2.0.0)
     builder (3.2.2)
     byebug (6.0.2)
     choice (0.1.7)
@@ -328,6 +330,7 @@ DEPENDENCIES
   bootstrap-material-design
   bootstrap-sass
   bootstrap3-datetimepicker-rails (~> 4.14.30)
+  braintree
   byebug
   coffee-rails (~> 4.1.0)
   delayed_job_active_record

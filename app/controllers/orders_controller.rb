@@ -15,6 +15,7 @@ class OrdersController < ApplicationController
   def new
     @order = @agent.orders.new
     @taxpayer = Taxpayer.new
+    @client_token = Braintree::ClientToken.generate
   end
 
   def create
@@ -50,12 +51,12 @@ class OrdersController < ApplicationController
   def show 
     @order = Order.find(params[:id])
     
-
-    if @order.status != 'Completed'
-      redirect_to @order.paypal_url(order_path(@order))
-    else
-      redirect_to root_url, notice: "Order Complete! We will notify when your NOAs are ready."
-    end
+    @client_token = Braintree::ClientToken.generate
+    # if @order.status != 'Completed'
+    #   redirect_to @order.paypal_url(order_path(@order))
+    # else
+    #   redirect_to root_url, notice: "Order Complete! We will notify when your NOAs are ready."
+    # end
     # if @order.document.exists? && params[:payment_status] == "Completed"
     #   redirect_to root_url, notice: "Your order has been received. You can view the details below."
     # elsif  @order.docusign_url.nil? && @order.document.nil?
@@ -65,7 +66,28 @@ class OrdersController < ApplicationController
     # end
   end
 
-  
+  def update
+    @order = Order.find(params[:id])
+    nonce = params[:payment_method_nonce]
+    render action: :new and return unless nonce
+    result = Braintree::Transaction.sale(
+      amount: "52.50",
+      payment_method_nonce: nonce
+    )
+    Rails.logger.info("$$$$$$$$$$$$$$$$$$")
+    Rails.logger.info(result.inspect)
+    # Rails.logger.info(result.id)
+    Rails.logger.info("$$$$$$$$$$$$$$$$$$")
+    # asdfasdas
+    
+    flash[:notice] = "Sale successful. Head to Sizzler" if result.success?
+    flash[:alert] = "Something is amiss. #{result.transaction.processor_response_text}" unless result.success?
+
+    if result.success?
+      @order.update_attributes status: "Completed", transaction_id: result.transaction.id, purchased_at: Time.now 
+    end
+    redirect_to action: :new
+  end
 
   def docusign_response
     utility = DocusignRest::Utility.new

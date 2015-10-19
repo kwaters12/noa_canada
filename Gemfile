@@ -38,6 +38,7 @@ gem 'rack-timeout'
 gem 'delayed_job_active_record'
 gem 'newrelic_rpm'
 gem 'phony_rails'
+gem 'braintree'
 
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
