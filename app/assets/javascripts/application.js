@@ -17,7 +17,6 @@
 //= require judge
 //= require jquery_ujs
 //= require jquery-ui/autocomplete
-//= require turbolinks
 //= require jquery.turbolinks
 //= require moment
 //= require bootstrap-datetimepicker
