@@ -19,7 +19,7 @@
     .header-logo
       = image_tag('logo.png')
     .col-md-7
-      %h2 Please Pay Now
+      %h2 NOA Order - #{@order.taxpayer.name_display}
     .row
 
       - if @order.status === 'Started'
