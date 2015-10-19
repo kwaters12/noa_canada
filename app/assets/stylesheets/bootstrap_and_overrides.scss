@@ -1306,7 +1306,7 @@ ul.ui-autocomplete {
     margin-bottom: 70px;
     h2 {
       margin-top: 5px;
-      margin-bottom: 45px;
+      margin-bottom: 20px;
       text-align: center;
 
     }
@@ -1352,12 +1352,29 @@ ul.ui-autocomplete {
       margin-bottom: 0;
     }
   }
+  .payment {
+    .form-fields {
+      h2 {
+        margin-top: 125px;
+      }
+    }
+    .cta-selection {
+      margin-top: 0;
+      width: 100%;
+    }
+  }
 }
 
 
 @media all and (max-width: 768px) {
-
-  .alert {
+  .container, .col-md-6, .col-md-10 {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .cta-selection {
+    padding: 10px 30px;
+  }
+  .alert {  
     width: 100%;
   }
   .header-logo {

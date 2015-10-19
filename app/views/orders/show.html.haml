@@ -15,10 +15,10 @@
 
 .container.payment{"data-no-turbolinks" => "true"}
   .form-fields
-    .col-md-5
-    .header-logo
-      = image_tag('logo.png')
-    .col-md-7
+    .col-md-5.col-xs-12
+      .header-logo
+        = image_tag('logo.png')
+    .col-md-7.col-xs-12
       %h2 NOA Order - #{@order.taxpayer.name_display}
     .row
 
