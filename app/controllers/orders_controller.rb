@@ -25,18 +25,20 @@ class OrdersController < ApplicationController
     @order = @agent.orders.new(order_params)
     @order.taxpayer = Taxpayer.find_or_create_by(params[:order][:email])
     @order.order_number = 100000 + "#{@order.id}".to_f
-    respond_to do |format|
-      if @order.save
-          if params[:documents]
-            #===== The magic is here ;)
-            params[:documents].each { |document|
-              @order.assets.create(document: document)
-            }
-          end
 
-          format.html { redirect_to @order.paypal_url(order_path(@order)) }
-          format.js
-          format.json  { render json: @taxpayer.to_json(include: @order) }   
+    respond_to do |format|
+      if @order.save      
+
+        if params[:documents]
+          #===== The magic is here ;)
+          params[:documents].each { |document|
+            @order.assets.create(document: document)
+          }
+        end
+
+        format.html { redirect_to @order.paypal_url(order_path(@order)) }
+        format.js
+        format.json  { render json: @taxpayer.to_json(include: @order) }   
         #redirect_to root_url, notice: "Thank You!"
         
       else
@@ -87,6 +89,18 @@ class OrdersController < ApplicationController
       @order.update_attributes status: "Completed", transaction_id: result.transaction.id, purchased_at: Time.now 
     end
     redirect_to action: :new
+  end
+
+  def express_checkout
+    response = EXPRESS_GATEWAY.setup_purchase(5250,
+      ip: request.remote_ip,
+      return_url: "#{Rails.application.secrets.app_host}",
+      cancel_return_url: "#{Rails.application.secrets.app_host}",
+      currency: "CAD",
+      allow_guest_checkout: true,
+      items: [{name: "Order", description: "NOA Order", quantity: "1", amount: 5250}]
+    )
+    redirect_to EXPRESS_GATEWAY.redirect_url_for(response.token)
   end
 
   def docusign_response

@@ -27,26 +27,31 @@ class TaxpayersController < ApplicationController
         @order = @agent.orders.new(order_params)
         @order.status = "Started"
         @order.taxpayer = @taxpayer
-        @order.save
+        if @order.save
 
-        if params[:documents]
-          #===== The magic is here ;)
-          params[:documents].each { |document|
-            @order.assets.create(document: document)
+          if params[:documents]
+            #===== The magic is here ;)
+            params[:documents].each { |document|
+              @order.assets.create(document: document)
+            }
+          end
+          generate_pdf(@agent, @taxpayer, @order)          
+          
+          format.html { 
+            # redirect_to order_path(@order)
+            if params[:taxpayer][:payment_method] === 'Pay with Paypal'
+              redirect_to @order.paypal_url(order_path(@order))
+            else
+              redirect_to order_path(@order)
+            end
+          }
+          format.js
+          format.json  { render json: @taxpayer.to_json(include: @order) }
+        else
+          format.html {
+            redirect_to new_order_path, notice: "Sorry, your application was not saved"
           }
         end
-        generate_pdf(@agent, @taxpayer, @order)          
-        
-        format.html { 
-          # redirect_to order_path(@order)
-          if params[:taxpayer][:payment_method] === 'Pay with Paypal'
-            redirect_to @order.paypal_url(order_path(@order))
-          else
-            redirect_to order_path(@order)
-          end
-        }
-        format.js
-        format.json  { render json: @taxpayer.to_json(include: @order) }
       else
         format.html {
           redirect_to new_order_path, notice: "Sorry, your application was not saved"

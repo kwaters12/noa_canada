@@ -39,6 +39,7 @@ gem 'delayed_job_active_record'
 gem 'newrelic_rpm'
 gem 'phony_rails'
 gem 'braintree'
+gem 'activemerchant'
 
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'

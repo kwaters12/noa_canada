@@ -122,6 +122,10 @@ ActiveRecord::Schema.define(version: 20151013004450) do
     t.string   "order_type"
     t.string   "payment_method"
     t.string   "payment_confirmation_number"
+    t.string   "ip"
+    t.string   "last4"
+    t.decimal  "amount"
+    t.string   "authorization_code"
   end
 
   add_index "orders", ["agent_id"], name: "index_orders_on_agent_id", using: :btree

@@ -23,7 +23,25 @@
     .row
 
       - if @order.status === 'Started'
-        = render '/payment/form'
+        / = render '/payment/form'
+        .order-credit-form  
+          .form-group
+            %label Credit Card Number 
+            = f.text_field :credit_card_number, class: "form-control"
+          .col-md-6
+            .form-group
+              %label Exp. Month
+              = f.select :expiration_month, months, {}, class: "form-control"
+          .col-md-6
+            .form-group
+              %label Exp. Year
+              = f.select :expiration_year, years, {}, class: "form-control"
+          .col-md-4.col-md-offset-8
+            .form-group
+              %label CVV
+              = f.text_field :card_security_code, class: "form-control"
+          .form-group
+            = f.submit "Charge Credit Card", class: "btn btn-primary btn-raised submit-btn", id: 'submit-order'
 
 / = @order.status
 / = @order.notification_params
